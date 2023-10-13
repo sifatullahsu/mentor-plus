@@ -2,16 +2,28 @@
   "name": "mentor-plus-client",
   "version": "0.1.0",
   "private": true,
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": "yarn lint-prettier"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:check": "eslint --ignore-path .eslintignore --ext .js,.jsx,.ts,.tsx .",
+    "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|jsx|ts|tsx|json)\"",
+    "lint-prettier": "yarn lint:check && yarn prettier:check",
+    "husky:setup": "yarn husky install && yarn husky add .husky/pre-commit \"yarn lint-staged\""
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.4"
+    "next": "13.5.4",
+    "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.5.1",
+    "next-auth": "^4.23.2",
+    "react-hook-form": "^7.47.0",
+    "react-redux": "^8.1.3"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -22,6 +34,12 @@
     "postcss": "^8",
     "tailwindcss": "^3",
     "eslint": "^8",
-    "eslint-config-next": "13.5.4"
+    "eslint-config-next": "13.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3"
   }
 }
