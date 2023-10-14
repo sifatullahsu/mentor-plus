@@ -2,9 +2,6 @@
   "name": "mentor-plus-client",
   "version": "0.1.0",
   "private": true,
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": "yarn lint-prettier"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
