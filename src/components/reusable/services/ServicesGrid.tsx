@@ -16,7 +16,7 @@ const ServicesGrid = ({ data }: any) => {
           </Link>
         </div>
         <div className="text-lg font-medium ">
-          <Link href={`/services/${data.mentor.username}/${data.uid}`} className="hover:underline">
+          <Link href={`/services/${data.uid}`} className="hover:underline">
             {data.title}
           </Link>
         </div>

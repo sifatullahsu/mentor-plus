@@ -17,3 +17,10 @@ body {
 .form-control label span {
   @apply label-text;
 }
+
+.services-single ol,
+.services-single ul {
+  list-style: circle;
+  margin: 10px;
+  padding-left: 30px;
+}

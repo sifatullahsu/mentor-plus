@@ -1,8 +1,16 @@
+import MentorsLoop from '@/components/reusable/mentors/MentorsLoop'
 import MainLayout from '@/layouts/MainLayout'
+import { useGetUsersQuery } from '@/redux/api/usersApi'
 import { NextLayout } from '@/types'
 
 const MentorsPage: NextLayout = () => {
-  return <div></div>
+  const { data, isLoading, isError, refetch } = useGetUsersQuery({ query: undefined })
+
+  return (
+    <div className="container py-10">
+      <MentorsLoop data={data?.data} isLoading={isLoading} isError={isError} refetch={refetch} />
+    </div>
+  )
 }
 
 export default MentorsPage
