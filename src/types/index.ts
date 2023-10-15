@@ -15,6 +15,8 @@ export type iChildren = {
   children: ReactNode
 }
 
+export type iFormEvent = React.FormEvent<HTMLFormElement>
+
 export type iMeta = {
   limit: number
   page: number

@@ -15,16 +15,8 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   // @ts-ignore
-  function (response) {
-    return {
-      data: response.data
-    }
-  },
-  function (error) {
-    return {
-      data: error.response.data
-    }
-  }
+  response => ({ data: response.data }),
+  error => ({ data: error.response.data })
 )
 
 export default axiosInstance

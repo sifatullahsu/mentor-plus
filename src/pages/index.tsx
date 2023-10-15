@@ -10,11 +10,13 @@ const HomePage: NextLayout = () => {
     const username = 'sifatullah'
     const password = '12345'
 
-    signIn('credentials', {
+    const res = signIn('credentials', {
       username,
       password,
       redirect: false
     })
+
+    console.log(res)
   }
 
   const logout = () => {
