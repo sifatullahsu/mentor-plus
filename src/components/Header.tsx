@@ -16,9 +16,9 @@ const Header = () => {
         <li>
           <Link href="/services">Services</Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/mentors">Mentors</Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/profile">{data ? 'My Profile' : 'Login / Registration'}</Link>
         </li>

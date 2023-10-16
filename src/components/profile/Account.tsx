@@ -1,5 +1,5 @@
 const Account = () => {
-  return <div>Authenticated user</div>
+  return <div className="">ss</div>
 }
 
 export default Account

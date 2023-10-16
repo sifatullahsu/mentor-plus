@@ -1,11 +1,12 @@
 import Account from '@/components/profile/Account'
 import Authentication from '@/components/profile/Authentication'
-import MainLayout from '@/layouts/MainLayout'
+import ProfileLayout from '@/layouts/ProfileLayout'
 import { NextLayout } from '@/types'
 import { useSession } from 'next-auth/react'
 
 const ProfilePage: NextLayout = () => {
   const { data: user } = useSession()
+  console.log('asd')
 
   return (
     <div>
@@ -20,10 +21,12 @@ const ProfilePage: NextLayout = () => {
           </div>
         </div>
       )}
+
+      <div></div>
     </div>
   )
 }
 
 export default ProfilePage
 
-ProfilePage.getLayout = page => <MainLayout>{page}</MainLayout>
+ProfilePage.getLayout = page => <ProfileLayout>{page}</ProfileLayout>

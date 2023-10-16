@@ -1,3 +1,4 @@
+import { xGender } from '@/global/constants'
 import { useUserRegistrationMutation } from '@/redux/api/authApi'
 import toast from 'react-hot-toast'
 import Form from './form/Form'
@@ -8,21 +9,6 @@ import TextField from './form/TextField'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Registration = ({ setIsLogin }: { setIsLogin?: any }) => {
   const [userRegistration] = useUserRegistrationMutation()
-
-  const gender = [
-    {
-      key: 'Male',
-      value: 'Male'
-    },
-    {
-      key: 'Female',
-      value: 'Female'
-    },
-    {
-      key: 'Others',
-      value: 'Others'
-    }
-  ]
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loginHandler = async (data: any) => {
@@ -72,7 +58,7 @@ const Registration = ({ setIsLogin }: { setIsLogin?: any }) => {
           <TextField label="Email" name="email" required={true} />
           <TextField label="Number" name="number" required={true} />
         </div>
-        <SelectField label="Gender" name="gender" required={true} data={gender} />
+        <SelectField label="Gender" name="gender" required={true} data={xGender} />
         <TextField label="Password" name="password" required={true} />
         <SubmitButton title="Register Now" />
       </Form>

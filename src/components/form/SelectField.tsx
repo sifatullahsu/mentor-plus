@@ -8,9 +8,10 @@ type iProps = {
   }[]
   required?: boolean
   onChange?: (id: string) => void
+  defaultValue?: string | number
 }
 
-const SelectField = ({ label, name, data, required = false, onChange }: iProps) => {
+const SelectField = ({ label, name, data, required = false, onChange, defaultValue }: iProps) => {
   const onChangeHandler = (data: any) => {
     if (onChange) {
       onChange(data.target.value)
@@ -22,10 +23,14 @@ const SelectField = ({ label, name, data, required = false, onChange }: iProps) 
       <label>
         <span>{label}</span>
       </label>
-      <select name={name} required={required} className="select select-bordered" onChange={onChangeHandler}>
-        <option disabled selected>
-          Pick one
-        </option>
+      <select
+        name={name}
+        required={required}
+        defaultValue={defaultValue}
+        className="select select-bordered"
+        onChange={onChangeHandler}
+      >
+        <option value="">Pick one</option>
         {data.map(item => {
           return (
             <option value={item.key} key={item.key}>
