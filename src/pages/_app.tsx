@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <SessionProvider session={session} refetchOnWindowFocus>
+    <SessionProvider session={session}>
       <Provider store={store}>
         <style jsx global>{`
           :root {

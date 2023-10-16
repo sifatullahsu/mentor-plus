@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 
 const AccountSettings: NextLayout = () => {
   const { data: user } = useSession()
-  const { data } = useGetUserQuery({ id: user?.user._id })
+  const { data, isLoading, isError } = useGetUserQuery({ id: user?.user._id })
   const [userUpdate] = useUpdateUserMutation()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,7 +68,9 @@ const AccountSettings: NextLayout = () => {
     }
   }
 
-  if (!data || (data && !data.status)) return <div>loading</div>
+  // if (!data || (data && !data.status)) return <div>loading</div>
+  if (isLoading) return <div>Loading</div>
+  if (isError) return <div>Error</div>
 
   return (
     <div>
