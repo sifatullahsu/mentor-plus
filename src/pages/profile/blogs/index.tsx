@@ -2,7 +2,7 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useDeleteBlogMutation, useGetBlogsQuery } from '@/redux/api/blogApi'
-import { NextLayout } from '@/types'
+import { NextLayout, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
@@ -12,17 +12,27 @@ const BlogsPage: NextLayout = () => {
   const { data, isLoading } = useGetBlogsQuery({ query: `user=$eq:${session?.user?._id}` })
   const [deleteBlog] = useDeleteBlogMutation()
 
-  const tableHeader: string[] = ['Title', 'Category', 'Status', 'Actons']
+  const tableHeader: iTableHeader = ['Title', 'Category', 'Status', 'Actons']
 
-  const tableData: string[][] = data?.data?.map((item: any) => {
+  const tableData: iTableData[] = data?.data?.map((item: any): iTableData => {
     const {
       _id,
       title,
+      slug,
       category: { title: catTitle },
+      user: { username },
       status
     } = item
 
-    return [_id, title, catTitle, status]
+    const others = {
+      viewLink: `/blogs/${username}/${slug}`,
+      editLink: `/profile/blogs/${_id}`
+    }
+
+    return {
+      data: [_id, title, catTitle, status],
+      others
+    }
   })
 
   const deleteHandler = async (id: string) => {
@@ -47,7 +57,6 @@ const BlogsPage: NextLayout = () => {
       <Table
         tableHeader={tableHeader}
         tableData={tableData}
-        url="/profile/blogs"
         deleteHandler={deleteHandler}
         isLoading={isLoading}
       />

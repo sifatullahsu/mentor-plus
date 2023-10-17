@@ -2,23 +2,29 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetbookingsQuery } from '@/redux/api/bookingApi'
-import { NextLayout } from '@/types'
+import { NextLayout, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
 
 const BookingPage: NextLayout = () => {
   const { data: session } = useSession()
   const { data, isLoading } = useGetbookingsQuery({ query: `user=$eq:${session?.user?._id}` })
 
-  const tableHeader: string[] = ['Mentor Name', 'Time', 'Hours', 'Price', 'Actons']
+  const tableHeader: iTableHeader = ['Mentor Name', 'Time', 'Hours', 'Price', 'Actons']
 
-  const tableData: string[][] = data?.data?.map((item: any) => {
+  const tableData: iTableData[] = data?.data?.map((item: any): iTableData => {
     const _id = item._id
     const mentorName = item.mentorDetails.name.firstName + ' ' + item.mentorDetails.name.lastName
     const time = item.time
     const hours = item.hours + ' hr'
     const price = '$' + item.price
 
-    return [_id, mentorName, time, hours, price]
+    return {
+      data: [_id, mentorName, time, hours, price],
+      others: {
+        viewLink: `/profile/bookings/${_id}`,
+        editLink: ''
+      }
+    }
   })
 
   const deleteHandler = (id: string) => {
@@ -31,7 +37,6 @@ const BookingPage: NextLayout = () => {
       <Table
         tableHeader={tableHeader}
         tableData={tableData}
-        url="/profile/bookings"
         deleteHandler={deleteHandler}
         isLoading={isLoading}
       />

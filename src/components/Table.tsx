@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { iTableData, iTableHeader } from '@/types'
 import Link from 'next/link'
 import { useState } from 'react'
+import { AiOutlineEye } from 'react-icons/ai'
 import { BiLink } from 'react-icons/bi'
 import { MdOutlineDeleteSweep } from 'react-icons/md'
 import ConfirmationModal from './ConfirmationModal'
 
 type iProps = {
-  tableHeader: string[]
-  tableData: string[][]
-  url?: string
+  tableHeader: iTableHeader
+  tableData: iTableData[]
   deleteHandler?: (id: string) => void
   isLoading: boolean
 }
 
-const Table = ({ tableHeader, tableData, url, deleteHandler, isLoading }: iProps) => {
+const Table = ({ tableHeader, tableData, deleteHandler, isLoading }: iProps) => {
   tableData = tableData || []
   const [openDeleteModal, setOpenDeleteModal] = useState('')
 
@@ -38,23 +39,28 @@ const Table = ({ tableHeader, tableData, url, deleteHandler, isLoading }: iProps
         </thead>
         {tableData?.length !== 0 && (
           <tbody>
-            {tableData?.map((item: string[], index: number) => {
+            {tableData?.map((item, index: number) => {
               return (
-                <tr key={item[0]}>
-                  {item.map((innerData: string, innerIndex: number) => {
+                <tr key={item.data[0]}>
+                  {item.data.map((innerData: string, innerIndex: number) => {
                     if (innerIndex === 0) return <th key={innerIndex}>{index + 1}</th>
                     return <td key={innerIndex}>{innerData}</td>
                   })}
                   <td className="space-x-2">
-                    {url && (
-                      <Link href={`${url}/${item[0]}`} className="btn btn-primary btn-sm btn-square">
+                    {item?.others?.editLink && (
+                      <Link href={item.others.editLink} className="btn btn-primary btn-sm btn-square">
                         <BiLink className="text-lg" />
+                      </Link>
+                    )}
+                    {item?.others?.viewLink && (
+                      <Link href={item.others.viewLink} className="btn btn-primary btn-sm btn-square">
+                        <AiOutlineEye className="text-lg" />
                       </Link>
                     )}
                     {deleteHandler && (
                       <button
                         type="button"
-                        onClick={() => setOpenDeleteModal(item[0])}
+                        onClick={() => setOpenDeleteModal(item.data[0])}
                         className="btn btn-primary btn-sm btn-square"
                       >
                         <MdOutlineDeleteSweep className="text-lg" />

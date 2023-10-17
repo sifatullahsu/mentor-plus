@@ -10,7 +10,7 @@ import TextareaField from './form/TextareaField'
 
 type iProps = {
   formHandler: (data: any) => void
-  defaultValue?: Record<string, unknown>
+  defaultValue?: Record<string, any>
   submitButtonText?: string
 }
 
@@ -23,11 +23,17 @@ const BlogForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iP
 
   return (
     <Form submitHandler={formHandler}>
-      <TextField label="Title" name="title" required={true} />
-      <TextField label="Slug (optional)" name="slug" />
-      <TextareaField label="Content" name="content" required={true} />
-      <TextField label="Image" name="image" />
-      <SelectField label="Category" name="category" data={categoryField} required={true} />
+      <TextField label="Title" name="title" required={true} defaultValue={defaultValue?.title} />
+      <TextField label="Slug (optional)" name="slug" defaultValue={defaultValue?.slug} />
+      <TextareaField label="Content" name="content" required={true} defaultValue={defaultValue?.content} />
+      <TextField label="Image" name="image" defaultValue={defaultValue?.image} />
+      <SelectField
+        label="Category"
+        name="category"
+        data={categoryField}
+        required={true}
+        defaultValue={defaultValue?.category}
+      />
       <SelectField
         label="Status"
         name="status"

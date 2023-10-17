@@ -20,7 +20,7 @@ export const blogApi = baseApi.injectEndpoints({
     }),
     getBlog: build.query({
       query: ({ id, query }) => ({
-        url: `/blogs/${id}${query && '?' + query}`,
+        url: `/blogs/${id}?${query}`,
         method: 'GET'
       }),
       providesTags: [tags.blogs]

@@ -22,3 +22,13 @@ export type iMeta = {
   page: number
   total: number
 }
+
+export type iTableHeader = string[]
+
+export type iTableData = {
+  data: string[]
+  others?: {
+    viewLink?: string
+    editLink?: string
+  }
+}
