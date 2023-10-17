@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
-import { useGetBlogsQuery } from '@/redux/api/blogApi'
+import { useDeleteBlogMutation, useGetBlogsQuery } from '@/redux/api/blogApi'
 import { NextLayout } from '@/types'
 import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 const BlogsPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetBlogsQuery({ query: `user=${session?.user?._id}` })
+  const { data, isLoading } = useGetBlogsQuery({ query: `user=$eq:${session?.user?._id}` })
+  const [deleteBlog] = useDeleteBlogMutation()
 
   const tableHeader: string[] = ['Title', 'Category', 'Status', 'Actons']
 
@@ -22,8 +24,14 @@ const BlogsPage: NextLayout = () => {
     return [_id, title, catTitle, status]
   })
 
-  const deleteHandler = (id: string) => {
-    console.log(id)
+  const deleteHandler = async (id: string) => {
+    const res = await deleteBlog({ id }).unwrap()
+
+    if (res.status) {
+      toast.success(res.message)
+    } else {
+      toast.error(res.message)
+    }
   }
 
   return (
@@ -31,7 +39,7 @@ const BlogsPage: NextLayout = () => {
       <h3 className="text-lg font-medium mb-5">My Blogs</h3>
       <Table
         tableHeader={tableHeader}
-        tableData={tableData || []}
+        tableData={tableData}
         url="/profile/blogs"
         deleteHandler={deleteHandler}
         isLoading={isLoading}
