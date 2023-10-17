@@ -12,3 +12,21 @@ export const xGender = [
     value: 'Others'
   }
 ]
+export const xContentStatus = [
+  {
+    key: 'published',
+    value: 'Published'
+  },
+  {
+    key: 'draft',
+    value: 'Draft'
+  },
+  {
+    key: 'pending',
+    value: 'Pending'
+  },
+  {
+    key: 'unpublished',
+    value: 'Unpublished'
+  }
+]
