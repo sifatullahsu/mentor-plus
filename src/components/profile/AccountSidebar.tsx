@@ -41,6 +41,11 @@ const AccountSidebar = () => {
                 <BiTimer className="text-[20px]" /> Appointments
               </Link>
             </li>
+            <li>
+              <Link href="/profile/services">
+                <BiTimer className="text-[20px]" /> Services
+              </Link>
+            </li>
           </>
         )}
         <li>
