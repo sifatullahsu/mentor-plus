@@ -1,3 +1,4 @@
+import { tags } from '../tags'
 import { baseApi } from './baseApi'
 
 export const blogApi = baseApi.injectEndpoints({
@@ -8,21 +9,21 @@ export const blogApi = baseApi.injectEndpoints({
         method: 'POST',
         data: data
       }),
-      invalidatesTags: ['blogs']
+      invalidatesTags: [tags.blogs]
     }),
     getBlogs: build.query({
       query: ({ query }) => ({
         url: `/blogs?${query}`,
         method: 'GET'
       }),
-      providesTags: ['blogs']
+      providesTags: [tags.blogs]
     }),
     getBlog: build.query({
       query: ({ id, query }) => ({
         url: `/blogs/${id}${query && '?' + query}`,
         method: 'GET'
       }),
-      providesTags: ['blogs']
+      providesTags: [tags.blogs]
     }),
     updateBlog: build.mutation({
       query: ({ id, data }) => ({
@@ -30,14 +31,14 @@ export const blogApi = baseApi.injectEndpoints({
         method: 'PATCH',
         data: data
       }),
-      invalidatesTags: ['blogs']
+      invalidatesTags: [tags.blogs]
     }),
     deleteBlog: build.mutation({
       query: ({ id }) => ({
         url: `/blogs/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['blogs']
+      invalidatesTags: [tags.blogs]
     })
   })
 })

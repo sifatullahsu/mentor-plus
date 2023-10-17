@@ -5,14 +5,13 @@ import { NextLayout } from '@/types'
 import { useSession } from 'next-auth/react'
 
 const ProfilePage: NextLayout = () => {
-  const { data: user } = useSession()
-  console.log('asd')
+  const { data: session } = useSession()
 
   return (
     <div>
-      {user ? (
+      {session ? (
         <div>
-          <Account />
+          <Account session={session} />
         </div>
       ) : (
         <div className="container">
