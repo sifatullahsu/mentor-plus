@@ -7,20 +7,19 @@ import { useSession } from 'next-auth/react'
 
 const BookingPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetbookingsQuery({ query: `user=${session?.user?._id}` })
+  const { data, isLoading } = useGetbookingsQuery({ query: `user=$eq:${session?.user?._id}` })
 
   const tableHeader: string[] = ['Mentor Name', 'Time', 'Hours', 'Price', 'Actons']
 
-  const tableData: string[][] =
-    data?.data?.map((item: any) => {
-      const _id = item._id
-      const mentorName = item.mentorDetails.name.firstName + ' ' + item.mentorDetails.name.lastName
-      const time = item.time
-      const hours = item.hours + ' hr'
-      const price = '$' + item.price
+  const tableData: string[][] = data?.data?.map((item: any) => {
+    const _id = item._id
+    const mentorName = item.mentorDetails.name.firstName + ' ' + item.mentorDetails.name.lastName
+    const time = item.time
+    const hours = item.hours + ' hr'
+    const price = '$' + item.price
 
-      return [_id, mentorName, time, hours, price]
-    }) || []
+    return [_id, mentorName, time, hours, price]
+  })
 
   const deleteHandler = (id: string) => {
     console.log(id)

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from 'next/link'
+import { useState } from 'react'
 import { BiLink } from 'react-icons/bi'
 import { MdOutlineDeleteSweep } from 'react-icons/md'
+import ConfirmationModal from './ConfirmationModal'
 
 type iProps = {
   tableHeader: string[]
@@ -12,10 +14,14 @@ type iProps = {
 }
 
 const Table = ({ tableHeader, tableData, url, deleteHandler, isLoading }: iProps) => {
-  // const [openDeleteModal, setOpenDeleteModal] = useState('')
-  // const handlerDeleteConfirmation = (isDelete: boolean) => {
-  //   console.log(isDelete)
-  // }
+  tableData = tableData || []
+  const [openDeleteModal, setOpenDeleteModal] = useState('')
+
+  const handlerDelete = (id: string) => {
+    if (deleteHandler) {
+      deleteHandler(id)
+    }
+  }
 
   if (isLoading) return <div>Loading data</div>
 
@@ -48,7 +54,7 @@ const Table = ({ tableHeader, tableData, url, deleteHandler, isLoading }: iProps
                     {deleteHandler && (
                       <button
                         type="button"
-                        onClick={() => deleteHandler(item[0])}
+                        onClick={() => setOpenDeleteModal(item[0])}
                         className="btn btn-primary btn-sm btn-square"
                       >
                         <MdOutlineDeleteSweep className="text-lg" />
@@ -65,12 +71,15 @@ const Table = ({ tableHeader, tableData, url, deleteHandler, isLoading }: iProps
         <div className="bg-base-200 text-center p-10">No data found in the database.</div>
       )}
 
-      {/* <Modal
+      <ConfirmationModal
         id="delete_modal"
         isOpen={openDeleteModal}
         handleCloseModal={setOpenDeleteModal}
-        title="Do You Want to Delete The Item?"
-      /> */}
+        handleConfirmed={handlerDelete}
+        title="DELETE ALERT"
+        description="Are you sure, Do you want to delete the item?"
+        confirmButtonText="YES DELETE"
+      />
     </div>
   )
 }

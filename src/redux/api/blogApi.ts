@@ -11,7 +11,7 @@ export const blogApi = baseApi.injectEndpoints({
     }),
     getBlogs: build.query({
       query: ({ query }) => ({
-        url: `/blogs${query && '?' + query}`,
+        url: `/blogs?${query}`,
         method: 'GET'
       })
     }),
