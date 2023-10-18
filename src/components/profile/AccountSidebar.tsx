@@ -106,7 +106,7 @@ const AccountSidebar = () => {
           </>
         )}
         <li className="pt-44">
-          <button onClick={() => signOut()}>
+          <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
             <IoLogOutOutline className="text-lg"></IoLogOutOutline> Logout
           </button>
         </li>

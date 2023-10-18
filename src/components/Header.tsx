@@ -24,7 +24,7 @@ const Header = () => {
         </li>
         {data && (
           <li>
-            <button onClick={() => signOut()}>
+            <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>
               <IoLogOutOutline className="text-lg"></IoLogOutOutline>
             </button>
           </li>
