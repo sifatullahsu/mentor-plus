@@ -72,6 +72,11 @@ const AccountSidebar = () => {
             <MdOutlineArticle className="text-[20px]" /> Blogs
           </Link>
         </li>
+        <li>
+          <Link href="/profile/feedbacks">
+            <MdOutlineArticle className="text-[20px]" /> Feedbacks
+          </Link>
+        </li>
         <li className="pt-44">
           <button onClick={() => signOut()}>
             <IoLogOutOutline className="text-lg"></IoLogOutOutline> Logout

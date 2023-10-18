@@ -6,11 +6,6 @@ import { useSession } from 'next-auth/react'
 
 const ProfileLayout = ({ children }: iChildren) => {
   const { data: user } = useSession()
-  // const router = useRouter()
-
-  // if (status === 'loading' && !router.isReady) return <div>loading</div>
-
-  // console.log(router.query)
 
   return (
     <div>
