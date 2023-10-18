@@ -41,6 +41,10 @@ const AccountSidebar = () => {
                 <BiTimer className="text-[20px]" /> Appointments
               </Link>
             </li>
+          </>
+        )}
+        {(session?.user.role === 'mentor' || session?.user.role === 'admin') && (
+          <>
             <li>
               <Link href="/profile/services">
                 <BiTimer className="text-[20px]" /> Services
@@ -92,6 +96,11 @@ const AccountSidebar = () => {
             <li>
               <Link href="/profile/faqs">
                 <MdOutlineArticle className="text-[20px]" /> Faqs
+              </Link>
+            </li>
+            <li>
+              <Link href="/profile/users">
+                <MdOutlineArticle className="text-[20px]" /> Users
               </Link>
             </li>
           </>

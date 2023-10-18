@@ -87,3 +87,22 @@ export const xStatus = [
     value: 'disabled'
   }
 ]
+
+export const xRole = [
+  {
+    key: 'super_admin',
+    value: 'super_admin'
+  },
+  {
+    key: 'admin',
+    value: 'admin'
+  },
+  {
+    key: 'mentor',
+    value: 'mentor'
+  },
+  {
+    key: 'student',
+    value: 'student'
+  }
+]

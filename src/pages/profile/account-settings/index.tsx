@@ -59,7 +59,6 @@ const AccountSettings: NextLayout = () => {
     if (password) responseData['password'] = password
 
     const res = await userUpdate({ id: user?.user._id, data: responseData }).unwrap()
-    console.log(res)
 
     if (res.status) {
       toast.success('User update successfull.')
