@@ -19,11 +19,12 @@ const FeedbackForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }
     const title = from?.title?.value
     const description = from?.description?.value
 
-    const result = {
+    const result: any = {
       title,
-      description,
-      user: session?.user._id
+      description
     }
+
+    if (!defaultValue) result['user'] = session?.user._id
 
     formHandler(result)
   }

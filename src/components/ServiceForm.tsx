@@ -64,44 +64,51 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
 
     if (!categoryItem) {
       toast.error('Category is required.')
-    } else {
-      const result = {
-        title,
-        description,
-        image,
-        category: categoryItem,
-        topics: topicsItem,
-        languages: languageItem,
-        packages: [
-          {
-            title: 'Package 1',
-            hours: 1,
-            price: package_1
-          },
-          {
-            title: 'Package 2',
-            hours: 2,
-            price: package_2
-          },
-          {
-            title: 'Package 3',
-            hours: 3,
-            price: package_3
-          }
-        ],
-        mentor: session?.user._id,
-        status
-      }
-
-      formHandler(result)
-      // from.reset()
-
-      // if (!defaultValue) {
-      //   setLanguages([])
-      //   setCategory([])
-      //   setTopics([])
-      // }
+      return
     }
+
+    if (session?.user.role !== 'mentor' && !defaultValue) {
+      toast.error('Only mentor can create services.')
+      return
+    }
+
+    const result: any = {
+      title,
+      description,
+      image,
+      category: categoryItem,
+      topics: topicsItem,
+      languages: languageItem,
+      packages: [
+        {
+          title: 'Package 1',
+          hours: 1,
+          price: package_1
+        },
+        {
+          title: 'Package 2',
+          hours: 2,
+          price: package_2
+        },
+        {
+          title: 'Package 3',
+          hours: 3,
+          price: package_3
+        }
+      ],
+      status
+    }
+
+    if (session?.user.role === 'mentor') result['mentor'] = session?.user._id
+
+    formHandler(result)
+    // from.reset()
+
+    // if (!defaultValue) {
+    //   setLanguages([])
+    //   setCategory([])
+    //   setTopics([])
+    // }
   }
 
   useEffect(() => {
