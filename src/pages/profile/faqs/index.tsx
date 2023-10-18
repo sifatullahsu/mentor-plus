@@ -2,12 +2,15 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useDeletefaqMutation, useGetfaqsQuery } from '@/redux/api/faqApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import Link from 'next/link'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const FaqsPage: NextLayout = () => {
-  const { data, isLoading } = useGetfaqsQuery({})
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+
+  const { data, isLoading } = useGetfaqsQuery({ query: `page=${pagination.page}&size=20` })
   const [deleteItem] = useDeletefaqMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Actons']
@@ -47,6 +50,8 @@ const FaqsPage: NextLayout = () => {
         tableData={tableData}
         isLoading={isLoading}
         deleteHandler={deleteHandler}
+        meta={data?.meta}
+        setPagination={setPagination}
       />
     </div>
   )

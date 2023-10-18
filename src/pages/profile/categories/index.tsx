@@ -2,12 +2,15 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from '@/redux/api/categoryApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import Link from 'next/link'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const CategoriesPage: NextLayout = () => {
-  const { data, isLoading } = useGetCategoriesQuery({})
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+
+  const { data, isLoading } = useGetCategoriesQuery({ query: `page=${pagination.page}&size=20` })
   const [deleteCategory] = useDeleteCategoryMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Actons']
@@ -46,6 +49,8 @@ const CategoriesPage: NextLayout = () => {
         tableData={tableData}
         isLoading={isLoading}
         deleteHandler={deleteHandler}
+        meta={data?.meta}
+        setPagination={setPagination}
       />
     </div>
   )

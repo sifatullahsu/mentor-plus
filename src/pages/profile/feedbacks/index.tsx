@@ -2,13 +2,18 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetFeedbacksQuery } from '@/redux/api/feedbackApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const FeedbacksPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetFeedbacksQuery({ query: `user=$eq:${session?.user?._id}` })
+
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+  const query = session?.user.role === 'admin' ? '' : `&user=$eq:${session?.user?._id}`
+
+  const { data, isLoading } = useGetFeedbacksQuery({ query: `page=${pagination.page}&size=20` + query })
 
   const tableHeader: iTableHeader = ['Title', 'Actons']
 
@@ -31,7 +36,13 @@ const FeedbacksPage: NextLayout = () => {
           Give Feedback
         </Link>
       </div>
-      <Table tableHeader={tableHeader} tableData={tableData} isLoading={isLoading} />
+      <Table
+        tableHeader={tableHeader}
+        tableData={tableData}
+        isLoading={isLoading}
+        meta={data?.meta}
+        setPagination={setPagination}
+      />
     </div>
   )
 }

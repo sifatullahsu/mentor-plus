@@ -37,11 +37,14 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
   const [category, setCategory] = useState(defaultCategory)
   const [topics, setTopics] = useState(defaultTopics)
 
-  const topicQuery = `category=$eq:${category[0]?.key}&size:20`
+  const topicQuery = `category=$eq:${category[0]?.key}&size=20`
   const { data: categoryList, isLoading: categoryLoading } = useGetCategoriesQuery({ query: `size:20` })
-  const { data: topicList, isLoading: topicLoading } = useGetTopicsQuery(topicQuery, {
-    refetchOnMountOrArgChange: true
-  })
+  const { data: topicList, isLoading: topicLoading } = useGetTopicsQuery(
+    { topicQuery },
+    {
+      refetchOnMountOrArgChange: true
+    }
+  )
 
   const categoryField = categoryList?.data?.map((item: any) => ({ key: item._id, value: item.title }))
   const topicField = topicList?.data?.map((item: any) => ({ key: item._id, value: item.title }))

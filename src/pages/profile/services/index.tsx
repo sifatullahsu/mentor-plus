@@ -2,14 +2,19 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useDeleteServiceMutation, useGetServicesQuery } from '@/redux/api/serviceApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const ServicesPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetServicesQuery({ query: `mentor=$eq:${session?.user?._id}` })
+
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+  const query = session?.user.role === 'admin' ? '' : `&mentor=$eq:${session?.user?._id}`
+
+  const { data, isLoading } = useGetServicesQuery({ query: `page=${pagination.page}&size=20` + query })
   const [deleteService] = useDeleteServiceMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Category', 'Prices', 'Status', 'Actons']
@@ -58,6 +63,8 @@ const ServicesPage: NextLayout = () => {
         tableData={tableData}
         deleteHandler={deleteHandler}
         isLoading={isLoading}
+        meta={data?.meta}
+        setPagination={setPagination}
       />
     </div>
   )

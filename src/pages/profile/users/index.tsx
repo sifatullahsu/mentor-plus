@@ -2,11 +2,14 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetUsersQuery } from '@/redux/api/usersApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const UsersPage: NextLayout = () => {
-  const { data, isLoading } = useGetUsersQuery({})
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+
+  const { data, isLoading } = useGetUsersQuery({ query: `page=${pagination.page}&size=20` })
 
   const tableHeader: iTableHeader = ['Username', 'Email', 'Role', 'Actons']
 
@@ -34,7 +37,13 @@ const UsersPage: NextLayout = () => {
           Create User
         </Link>
       </div>
-      <Table tableHeader={tableHeader} tableData={tableData} isLoading={isLoading} />
+      <Table
+        tableHeader={tableHeader}
+        tableData={tableData}
+        isLoading={isLoading}
+        meta={data?.meta}
+        setPagination={setPagination}
+      />
     </div>
   )
 }

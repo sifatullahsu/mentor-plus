@@ -18,9 +18,9 @@ export type iChildren = {
 export type iFormEvent = React.FormEvent<HTMLFormElement>
 
 export type iMeta = {
-  limit: number
   page: number
-  total: number
+  size: number
+  count: number
 }
 
 export type iTableHeader = string[]

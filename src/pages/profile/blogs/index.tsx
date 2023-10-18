@@ -2,15 +2,20 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useDeleteBlogMutation, useGetBlogsQuery } from '@/redux/api/blogApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const BlogsPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetBlogsQuery({ query: `user=$eq:${session?.user?._id}` })
-  const [deleteBlog] = useDeleteBlogMutation()
+
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+  const query = session?.user.role === 'admin' ? '' : `&user=$eq:${session?.user?._id}`
+
+  const { data, isLoading } = useGetBlogsQuery({ query: `page=${pagination.page}&size=20` + query })
+  const [deleteItem] = useDeleteBlogMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Category', 'Status', 'Actons']
 
@@ -36,7 +41,7 @@ const BlogsPage: NextLayout = () => {
   })
 
   const deleteHandler = async (id: string) => {
-    const res = await deleteBlog({ id }).unwrap()
+    const res = await deleteItem({ id }).unwrap()
 
     if (res.status) {
       toast.success(res.message)
@@ -59,6 +64,8 @@ const BlogsPage: NextLayout = () => {
         tableData={tableData}
         deleteHandler={deleteHandler}
         isLoading={isLoading}
+        meta={data?.meta}
+        setPagination={setPagination}
       />
     </div>
   )

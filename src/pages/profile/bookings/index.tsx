@@ -2,12 +2,17 @@
 import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetbookingsQuery } from '@/redux/api/bookingApi'
-import { NextLayout, iTableData, iTableHeader } from '@/types'
+import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 const BookingPage: NextLayout = () => {
   const { data: session } = useSession()
-  const { data, isLoading } = useGetbookingsQuery({ query: `user=$eq:${session?.user?._id}` })
+
+  const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
+  const query = session?.user.role === 'admin' ? '' : `&user=$eq:${session?.user?._id}`
+
+  const { data, isLoading } = useGetbookingsQuery({ query: `page=${pagination.page}&size=20` + query })
 
   const tableHeader: iTableHeader = ['Mentor Name', 'Time', 'Hours', 'Price', 'Actons']
 
@@ -30,7 +35,13 @@ const BookingPage: NextLayout = () => {
   return (
     <div>
       <h3 className="text-lg font-medium mb-5">My Bookings</h3>
-      <Table tableHeader={tableHeader} tableData={tableData} isLoading={isLoading} />
+      <Table
+        tableHeader={tableHeader}
+        tableData={tableData}
+        isLoading={isLoading}
+        meta={data?.meta}
+        setPagination={setPagination}
+      />
     </div>
   )
 }

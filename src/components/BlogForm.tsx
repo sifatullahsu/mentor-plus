@@ -26,7 +26,7 @@ const BlogForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iP
       <TextField label="Title" name="title" required={true} defaultValue={defaultValue?.title} />
       <TextField label="Slug (optional)" name="slug" defaultValue={defaultValue?.slug} />
       <TextareaField label="Content" name="content" required={true} defaultValue={defaultValue?.content} />
-      <TextField label="Image" name="image" defaultValue={defaultValue?.image} />
+      <TextField label="Image" name="image" required={true} defaultValue={defaultValue?.image} />
       <SelectField
         label="Category"
         name="category"
