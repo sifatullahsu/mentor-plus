@@ -10,10 +10,10 @@ import toast from 'react-hot-toast'
 const EditCategoryPage: NextLayout = () => {
   const { id } = useRouter().query
   const { data, isLoading } = useGetCategoryQuery({ id })
-  const [updateCategory] = useUpdateCategoryMutation()
+  const [updateItem] = useUpdateCategoryMutation()
 
   const formHandler = async (data: any) => {
-    const res = await updateCategory({ id, data }).unwrap()
+    const res = await updateItem({ id, data }).unwrap()
 
     if (res.status) {
       toast.success(res.message)
@@ -28,7 +28,11 @@ const EditCategoryPage: NextLayout = () => {
     <div>
       <h3 className="text-lg font-medium">Edit Category</h3>
       <div>
-        <CategoryForm formHandler={formHandler} submitButtonText="Update Category" defaultValue={data.data} />
+        <CategoryForm
+          formHandler={formHandler}
+          submitButtonText="Update Category"
+          defaultValue={data?.data}
+        />
       </div>
     </div>
   )
