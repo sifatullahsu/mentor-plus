@@ -77,6 +77,25 @@ const AccountSidebar = () => {
             <MdOutlineArticle className="text-[20px]" /> Feedbacks
           </Link>
         </li>
+        {session?.user.role === 'admin' && (
+          <>
+            <li>
+              <Link href="/profile/categories">
+                <MdOutlineArticle className="text-[20px]" /> Categories
+              </Link>
+            </li>
+            <li>
+              <Link href="/profile/topics">
+                <MdOutlineArticle className="text-[20px]" /> Topics
+              </Link>
+            </li>
+            <li>
+              <Link href="/profile/faqs">
+                <MdOutlineArticle className="text-[20px]" /> Faqs
+              </Link>
+            </li>
+          </>
+        )}
         <li className="pt-44">
           <button onClick={() => signOut()}>
             <IoLogOutOutline className="text-lg"></IoLogOutOutline> Logout
