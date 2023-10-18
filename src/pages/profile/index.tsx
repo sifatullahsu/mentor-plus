@@ -11,7 +11,7 @@ const ProfilePage: NextLayout = () => {
     <div>
       {session ? (
         <div>
-          <Account session={session} />
+          <Account />
         </div>
       ) : (
         <div className="container">

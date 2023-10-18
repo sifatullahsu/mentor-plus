@@ -19,7 +19,7 @@ const EditService: NextLayout = () => {
     if (res.status) {
       toast.success(res.message)
     } else {
-      toast.error('Somthing is wrong, try again')
+      toast.error(res.message)
     }
   }
 

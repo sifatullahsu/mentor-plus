@@ -12,7 +12,7 @@ export const topicApi = baseApi.injectEndpoints({
       invalidatesTags: [tags.topics]
     }),
     getTopics: build.query({
-      query: ({ query }) => ({
+      query: query => ({
         url: `/topics?${query}`,
         method: 'GET'
       }),

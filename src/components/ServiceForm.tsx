@@ -24,12 +24,14 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
 
   const defaultLanguages = defaultValue?.languages?.map((x: string) => ({ key: x, value: x }))
   const defaultTopics = defaultValue?.topics?.map((x: any) => ({ key: x._id, value: x.title }))
-  const defaultCategory = [
-    {
-      key: defaultValue?.category?._id,
-      value: defaultValue?.category?.title
-    }
-  ]
+  const defaultCategory = defaultValue?.category
+    ? [
+        {
+          key: defaultValue?.category?._id,
+          value: defaultValue?.category?.title
+        }
+      ]
+    : []
 
   const [languages, setLanguages] = useState(defaultLanguages)
   const [category, setCategory] = useState(defaultCategory)
@@ -37,7 +39,9 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
 
   const topicQuery = `category=$eq:${category[0]?.key}&size:20`
   const { data: categoryList, isLoading: categoryLoading } = useGetCategoriesQuery({ query: `size:20` })
-  const { data: topicList, isLoading: topicLoading, refetch } = useGetTopicsQuery({ query: topicQuery })
+  const { data: topicList, isLoading: topicLoading } = useGetTopicsQuery(topicQuery, {
+    refetchOnMountOrArgChange: true
+  })
 
   const categoryField = categoryList?.data?.map((item: any) => ({ key: item._id, value: item.title }))
   const topicField = topicList?.data?.map((item: any) => ({ key: item._id, value: item.title }))
@@ -52,15 +56,11 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
     const status = from?.status?.value
 
     const categoryItem = category[0]?.key
-    const topicsItem = topics?.map((x: any) => x.key)
-    const languageItem = languages?.map((x: any) => x.key)
+    const topicsItem = topics?.map((x: any) => x.key) || []
+    const languageItem = languages?.map((x: any) => x.key) || []
 
     if (!categoryItem) {
       toast.error('Category is required.')
-    } else if (!topicsItem) {
-      toast.error('Topics is required.')
-    } else if (languageItem.length === 0) {
-      toast.error('Languages is required.')
     } else {
       const result = {
         title,
@@ -76,12 +76,12 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
             price: package_1
           },
           {
-            title: 'Package 1',
+            title: 'Package 2',
             hours: 2,
             price: package_2
           },
           {
-            title: 'Package 1',
+            title: 'Package 3',
             hours: 3,
             price: package_3
           }
@@ -91,17 +91,21 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
       }
 
       formHandler(result)
-      from.reset()
+      // from.reset()
+
+      // if (!defaultValue) {
+      //   setLanguages([])
+      //   setCategory([])
+      //   setTopics([])
+      // }
     }
   }
 
   useEffect(() => {
-    refetch()
-
     if (!category.length) {
       setTopics(undefined)
     }
-  }, [category, refetch])
+  }, [category, topicQuery])
 
   if (categoryLoading || topicLoading) {
     return <div>Loading</div>

@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 
-const Account = ({ session }) => {
+const Account = () => {
   const { data } = useSession()
 
   return (

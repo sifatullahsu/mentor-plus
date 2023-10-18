@@ -3,13 +3,14 @@ import Header from '@/components/Header'
 import AccountSidebar from '@/components/profile/AccountSidebar'
 import { iChildren } from '@/types'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
 
 const ProfileLayout = ({ children }: iChildren) => {
-  const { data: user, status } = useSession()
-  const router = useRouter()
+  const { data: user } = useSession()
+  // const router = useRouter()
 
-  if (status === 'loading' && !router.isReady) return <div>loading</div>
+  // if (status === 'loading' && !router.isReady) return <div>loading</div>
+
+  // console.log(router.query)
 
   return (
     <div>
