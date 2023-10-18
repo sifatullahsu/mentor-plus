@@ -51,7 +51,7 @@ const EditBlog: NextLayout = () => {
         <BlogForm
           formHandler={createBlogHandler}
           defaultValue={data?.data}
-          submitButtonText="Create Blog Post"
+          submitButtonText="Edit Blog Post"
         />
       </div>
     </div>
