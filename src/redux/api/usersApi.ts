@@ -5,7 +5,7 @@ const usersApi = baseApi.injectEndpoints({
   endpoints: build => ({
     createUser: build.mutation({
       query: ({ data }) => ({
-        url: `/users`,
+        url: `/auth/register`,
         method: 'POST',
         data: data
       }),
@@ -30,13 +30,6 @@ const usersApi = baseApi.injectEndpoints({
         url: `/users/${id}`,
         method: 'PATCH',
         data: data
-      }),
-      invalidatesTags: [tags.users]
-    }),
-    deleteUser: build.mutation({
-      query: ({ id }) => ({
-        url: `/users/${id}`,
-        method: 'DELETE'
       }),
       invalidatesTags: [tags.users]
     })

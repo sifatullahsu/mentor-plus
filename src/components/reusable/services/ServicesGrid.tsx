@@ -3,14 +3,15 @@ import Link from 'next/link'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 
 const ServicesGrid = ({ data }: any) => {
-  function findLowestPricePackage(packages: any) {
-    return packages?.reduce(
-      (minPackage: any, item: any) => (item.price < minPackage.price ? item : minPackage),
-      packages[0]
-    )
-  }
+  // function findLowestPricePackage(packages: any) {
+  //   return packages?.reduce(
+  //     (minPackage: any, item: any) => (item.price < minPackage.price ? item : minPackage),
+  //     packages[0]
+  //   )
+  // }
 
-  const lowestPricePackage = findLowestPricePackage(data.packages)
+  // const lowestPricePackage = findLowestPricePackage(data.packages)
+  const prices = data.packages.map((i: any) => '$' + i.price).join(' | ')
 
   return (
     <div>
@@ -27,7 +28,9 @@ const ServicesGrid = ({ data }: any) => {
             {data.title}
           </Link>
         </div>
-        <div className="font-medium mt-5">From ${lowestPricePackage.price}</div>
+        <div className="font-medium mt-5">
+          <span className="text-sm">Price:</span> {prices}
+        </div>
       </div>
     </div>
   )

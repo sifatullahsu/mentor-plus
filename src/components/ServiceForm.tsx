@@ -40,7 +40,7 @@ const ServiceForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }:
   const topicQuery = `category=$eq:${category[0]?.key}&size=20`
   const { data: categoryList, isLoading: categoryLoading } = useGetCategoriesQuery({ query: `size:20` })
   const { data: topicList, isLoading: topicLoading } = useGetTopicsQuery(
-    { topicQuery },
+    { query: topicQuery },
     {
       refetchOnMountOrArgChange: true
     }
