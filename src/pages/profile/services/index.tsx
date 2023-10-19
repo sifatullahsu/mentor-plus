@@ -55,9 +55,11 @@ const ServicesPage: NextLayout = () => {
     <div>
       <div className="flex justify-between">
         <h3 className="text-lg font-medium mb-5">My Services</h3>
-        <Link href={`/profile/services/create`} className="btn btn-primary btn-sm">
-          Create Service
-        </Link>
+        {session?.user.role === 'mentor' && (
+          <Link href={`/profile/services/create`} className="btn btn-primary btn-sm">
+            Create Service
+          </Link>
+        )}
       </div>
       <Table
         tableHeader={tableHeader}

@@ -91,7 +91,7 @@ const BookingForm = ({ formHandler, data, submitButtonText = 'Submit' }: iProps)
                   name="slot"
                   onChange={() => setBookingState({ ...bookingState, package: packageKey })}
                   value={`${packageKey}`}
-                  className="opacity-0 absolute inset-0"
+                  className="opacity-0 absolute inset-0 z-30"
                   checked={isSelected}
                 />
               </div>
