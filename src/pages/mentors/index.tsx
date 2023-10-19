@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout'
 import { useGetUsersQuery } from '@/redux/api/usersApi'
 import { NextLayout } from '@/types'
 
+// This page for future scale
 const MentorsPage: NextLayout = () => {
   const { data, isLoading, isError, refetch } = useGetUsersQuery({ query: undefined })
 

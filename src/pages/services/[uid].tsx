@@ -12,6 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { BiCategory } from 'react-icons/bi'
@@ -24,7 +25,7 @@ const ServicesDetailsPage: NextLayout = () => {
   const { data: user } = useSession()
   const [selectedPackage, setSelectedPackage] = useState('')
   const [selectedTopic, setSelectedTopic] = useState('')
-  // const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date())
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -122,14 +123,14 @@ const ServicesDetailsPage: NextLayout = () => {
               data={topics}
               onChange={setSelectedTopic}
             />
-            {/* <DatePicker
+            <DatePicker
               showIcon
               selected={startDate}
               onChange={date => setStartDate(date)}
-              // icon={<AiOutlineUsergroupAdd className="inline mr-1 text-lg" />}
+              icon={<AiOutlineUsergroupAdd className="inline mr-1 text-lg" />}
               dateFormat="MMMM d, yyyy h:mm aa"
               calendarClassName="w-full"
-            /> */}
+            />
             <div className="grid grid-cols-3 gap-1 mt-5">
               {service?.packages.map((item: any, index: number) => {
                 const packageKey = `Package ${index + 1}_${item.hours}_${item.price}`
