@@ -27,3 +27,8 @@ body {
   margin: 10px;
   padding-left: 30px;
 }
+
+table tr th:last-child,
+table tr td:last-child {
+  float: right;
+}
