@@ -24,7 +24,9 @@ const Account = () => {
 
   return (
     <div className="">
-      <h3 className="text-lg font-medium">Hey {data?.user.name.firstName},</h3>
+      <h3 className="text-lg font-medium">
+        Hey {data?.user.name.firstName}, Welcome to &quot;Mentor Plus&quot;
+      </h3>
       <p className="text-xs">{data?.user.email.address}</p>
 
       {data?.user._id && data?.user.role === 'student' && (
@@ -46,6 +48,14 @@ const Account = () => {
           />
         </>
       )}
+
+      <p className="mt-10 lg:max-w-3xl">
+        At Mentor Plus, we&apos;ve created a seamless and convenient platform that brings mentors and students
+        together for productive and insightful mentoring sessions. Whether you&apos;re a mentor looking to
+        share your knowledge or a student seeking guidance, our platform is designed to make the appointment
+        booking process easy and efficient.
+      </p>
+      <p className="mt-10 text-lg font-medium">Explore all your options here.</p>
     </div>
   )
 }
