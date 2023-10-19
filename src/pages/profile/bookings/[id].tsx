@@ -44,8 +44,6 @@ const SingleBookingPage: NextLayout = () => {
 
   const [cancelBookingModal, setCancelBookingModal] = useState('')
   const cancelBookingHandler = async (id: string) => {
-    console.log(id)
-
     const finalData = { status: 'canceled' }
     const res = await updateBooking({ id, data: finalData }).unwrap()
 
