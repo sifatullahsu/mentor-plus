@@ -13,7 +13,8 @@ const Login = () => {
     const res = await signIn('credentials', {
       username,
       password,
-      redirect: false
+      redirect: true,
+      callbackUrl: '/profile'
     })
 
     if (res?.error) {
