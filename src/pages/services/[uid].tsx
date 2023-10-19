@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import securePayment from '@/assets/stripe.png'
-import Form from '@/components/form/Form'
-import SelectField from '@/components/form/SelectField'
+import BookingForm from '@/components/BookingForm'
 import Authentication from '@/components/profile/Authentication'
 import MainLayout from '@/layouts/MainLayout'
+import { useCreatebookingMutation } from '@/redux/api/bookingApi'
 import { useGetReviewsQuery } from '@/redux/api/reviewApi'
 import { useGetServiceQuery } from '@/redux/api/serviceApi'
 import { NextLayout } from '@/types'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import toast from 'react-hot-toast'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { BiCategory } from 'react-icons/bi'
 import { BsInfoLg } from 'react-icons/bs'
@@ -23,50 +21,45 @@ import 'react-modern-drawer/dist/index.css'
 
 const ServicesDetailsPage: NextLayout = () => {
   const { data: user } = useSession()
-  const [selectedPackage, setSelectedPackage] = useState('')
-  const [selectedTopic, setSelectedTopic] = useState('')
-  const [startDate, setStartDate] = useState(new Date())
+  const { query, push } = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggleDrawer = () => {
-    setIsOpen(prevState => !prevState)
-  }
-
-  const handleBookNow = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [packageName, hours, price] = selectedPackage.split('_')
-
-    if (!user) {
-      toggleDrawer()
-      return
-    }
-
-    const format: any = {
-      expertise: service._id,
-      user: user?.user._id,
-      topic: selectedTopic,
-      hours: parseInt(hours),
-      price: parseInt(price),
-      transactionId: new Date().toISOString()
-    }
-
-    console.log(format)
-  }
-
-  const { uid } = useRouter().query
-  const { data, isLoading, isError } = useGetServiceQuery({ id: uid })
+  const [createBooking] = useCreatebookingMutation()
+  const { data, isLoading } = useGetServiceQuery({ id: query.uid })
   const { data: reviewsData, isLoading: reviewsLoading } = useGetReviewsQuery(
     { query: `service=$eq:${data?.data?._id}&size=20` },
     { refetchOnMountOrArgChange: true }
   )
 
-  if (isLoading || !data || !data?.status || reviewsLoading) return <div>Loading</div>
-  if (isError) return <div>Error: somthing is wrong.</div>
+  const handleBookNow = async (formData: any) => {
+    if (!user) return setIsModalOpen(prevState => !prevState)
+
+    const [, hours, price] = formData.package.split('_')
+
+    const data: any = {
+      service: service._id,
+      topic: formData.topic,
+      user: user?.user._id,
+      price: parseInt(price),
+      hours: parseInt(hours),
+      time: formData.time.toISOString(),
+      transactionId: new Date().toISOString()
+    }
+
+    const res = await createBooking({ data }).unwrap()
+
+    if (res.status) {
+      toast.success(res.message)
+      push('/profile/bookings')
+    } else {
+      toast.error(res.message)
+    }
+  }
+
+  if (isLoading || reviewsLoading) return <div>Loading</div>
 
   const reviews = reviewsData.data
   const service = data.data
-  const topics = service.topics.map((item: any) => ({ key: item._id, value: item.title }))
 
   return (
     <div className="container py-10 services-single">
@@ -113,65 +106,18 @@ const ServicesDetailsPage: NextLayout = () => {
           </div>
         </div>
         <div>
-          <div className="font-medium ">Book The Service Now</div>
-          <Form submitHandler={handleBookNow}>
-            <div className="text-gray-400 text-xs">Secure payment gateway</div>
-            <SelectField
-              name="topics"
-              label="Select Topic"
-              required={true}
-              data={topics}
-              onChange={setSelectedTopic}
-            />
-            <DatePicker
-              showIcon
-              selected={startDate}
-              onChange={date => setStartDate(date)}
-              icon={<AiOutlineUsergroupAdd className="inline mr-1 text-lg" />}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              calendarClassName="w-full"
-            />
-            <div className="grid grid-cols-3 gap-1 mt-5">
-              {service?.packages.map((item: any, index: number) => {
-                const packageKey = `Package ${index + 1}_${item.hours}_${item.price}`
-                const isSelected = selectedPackage === packageKey
-
-                return (
-                  <div
-                    key={item._id}
-                    className={`p-3 bg-white rounded-2xl relative border-2 ${
-                      isSelected ? 'border-primary' : ''
-                    }`}
-                  >
-                    <div className="text-xs my-2">Package {index + 1}</div>
-                    <div className="text-xl font-medium">{item.hours} hr.</div>
-                    <div className="font-medium">${item.price}</div>
-                    <div className="text-xs mt-2">click me</div>
-                    <input
-                      type="radio"
-                      name="slot"
-                      onChange={() => setSelectedPackage(packageKey)}
-                      value={`${packageKey}`}
-                      className="opacity-0 absolute inset-0"
-                      checked={isSelected}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-            <button
-              className="btn btn-primary w-full mt-5"
-              disabled={selectedPackage && selectedTopic ? false : true}
-            >
-              Book Now
-            </button>
-            <Image src={securePayment} alt="" className="w-8/12 mt-5" />
-          </Form>
-
+          <BookingForm
+            formHandler={handleBookNow}
+            data={{
+              topics: service.topics,
+              packages: service.packages
+            }}
+            submitButtonText="Book Now"
+          />
           {!user && (
             <Drawer
-              open={isOpen}
-              onClose={toggleDrawer}
+              open={isModalOpen}
+              onClose={() => setIsModalOpen(prevState => !prevState)}
               direction="right"
               className="!w-[300px] md:!w-[600px]"
             >
