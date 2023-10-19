@@ -3,6 +3,7 @@ import Table from '@/components/Table'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetbookingsQuery } from '@/redux/api/bookingApi'
 import { NextLayout, iMeta, iTableData, iTableHeader } from '@/types'
+import getTime from '@/utils/getTime'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
@@ -14,7 +15,7 @@ const BookingPage: NextLayout = () => {
 
   const { data, isLoading } = useGetbookingsQuery({ query: `page=${pagination.page}&size=20` + query })
 
-  const tableHeader: iTableHeader = ['Mentor Name', 'Time', 'Hours', 'Price', 'Actons']
+  const tableHeader: iTableHeader = ['Mentor Name', 'Time', 'Hours', 'Price', 'Status', 'Actons']
 
   const tableData: iTableData[] = data?.data?.map((item: any): iTableData => {
     const _id = item._id
@@ -22,9 +23,11 @@ const BookingPage: NextLayout = () => {
     const time = item.time
     const hours = item.hours + ' hr'
     const price = '$' + item.price
+    let { status } = getTime(item.time, item.hours)
+    status = item.status === 'canceled' ? item.status : status
 
     return {
-      data: [_id, mentorName, time, hours, price],
+      data: [_id, mentorName, time, hours, price, status],
       others: {
         viewLink: `/profile/bookings/${_id}`,
         editLink: ''

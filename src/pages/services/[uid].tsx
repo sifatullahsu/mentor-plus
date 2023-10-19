@@ -4,6 +4,7 @@ import Form from '@/components/form/Form'
 import SelectField from '@/components/form/SelectField'
 import Authentication from '@/components/profile/Authentication'
 import MainLayout from '@/layouts/MainLayout'
+import { useGetReviewsQuery } from '@/redux/api/reviewApi'
 import { useGetServiceQuery } from '@/redux/api/serviceApi'
 import { NextLayout } from '@/types'
 import { useSession } from 'next-auth/react'
@@ -54,10 +55,15 @@ const ServicesDetailsPage: NextLayout = () => {
 
   const { uid } = useRouter().query
   const { data, isLoading, isError } = useGetServiceQuery({ id: uid })
+  const { data: reviewsData, isLoading: reviewsLoading } = useGetReviewsQuery(
+    { query: `service=$eq:${data?.data?._id}&size=20` },
+    { refetchOnMountOrArgChange: true }
+  )
 
-  if (isLoading || !data || !data?.status) return <div>Loading</div>
+  if (isLoading || !data || !data?.status || reviewsLoading) return <div>Loading</div>
   if (isError) return <div>Error: somthing is wrong.</div>
 
+  const reviews = reviewsData.data
   const service = data.data
   const topics = service.topics.map((item: any) => ({ key: item._id, value: item.title }))
 
@@ -91,6 +97,19 @@ const ServicesDetailsPage: NextLayout = () => {
           </div>
           <div className="text-2xl font-medium mb-5">{service.title}</div>
           <div className="" dangerouslySetInnerHTML={{ __html: service.description }}></div>
+          <div className="mt-20">
+            <h3 className="text-2xl font-medium mb-5">Reviews</h3>
+            {reviews?.map((review: any) => {
+              return (
+                <div key={review._id} className="border-t-2 border-dashed py-2">
+                  <div className="text-lg font-medium text-primary">{review.title}</div>
+                  <div>{review.description}</div>
+                  <div className="mt-5 font-medium text-xs">RATING: {review.rating} / 5</div>
+                </div>
+              )
+            })}
+            {reviews?.length === 0 && <div>No review found.</div>}
+          </div>
         </div>
         <div>
           <div className="font-medium ">Book The Service Now</div>

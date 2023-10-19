@@ -17,7 +17,7 @@ const ServicesPage: NextLayout = () => {
   const { data, isLoading } = useGetServicesQuery({ query: `page=${pagination.page}&size=20` + query })
   const [deleteService] = useDeleteServiceMutation()
 
-  const tableHeader: iTableHeader = ['Title', 'Category', 'Prices', 'Status', 'Actons']
+  const tableHeader: iTableHeader = ['Title', 'Category', 'Prices', 'username', 'Status', 'Actons']
 
   const tableData: iTableData[] = data?.data?.map((item: any): iTableData => {
     const {
@@ -26,13 +26,14 @@ const ServicesPage: NextLayout = () => {
       title,
       category: { title: catTitle },
       packages,
+      mentor: { username },
       status
     } = item
 
     const prices = packages.map((i: any) => '$' + i.price).join(' | ')
 
     return {
-      data: [_id, title, catTitle, prices, status],
+      data: [_id, title, catTitle, prices, username, status],
       others: {
         viewLink: `/services/${uid}`,
         editLink: `/profile/services/${_id}`

@@ -13,9 +13,15 @@ type iProps = {
   formHandler: (data: any) => void
   defaultValue?: Record<string, any>
   submitButtonText?: string
+  isAccountSettings?: boolean
 }
 
-const UserForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iProps) => {
+const UserForm = ({
+  formHandler,
+  defaultValue,
+  submitButtonText = 'Submit',
+  isAccountSettings = false
+}: iProps) => {
   const { data: session } = useSession()
 
   const localFormHandler = (from: any) => {
@@ -57,7 +63,7 @@ const UserForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iP
       },
       number: {
         cc: '+880',
-        digits: number.substring(1),
+        digits: number,
         is_verified: true
       },
       gender,
@@ -99,7 +105,7 @@ const UserForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iP
           label="Number (without +88)"
           name="number"
           required={true}
-          defaultValue={defaultValue?.number?.digits}
+          defaultValue={defaultValue ? `0${defaultValue?.number?.digits}` : undefined}
         />
       </div>
       <SelectField
@@ -139,7 +145,7 @@ const UserForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iP
         required={defaultValue ? false : true}
       />
 
-      {session?.user.role === 'admin' && (
+      {(session?.user.role === 'admin' || session?.user.role === 'super_admin') && !isAccountSettings && (
         <>
           <SelectField
             label="Role"

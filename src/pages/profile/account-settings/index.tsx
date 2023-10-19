@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Form from '@/components/form/Form'
-import SelectField from '@/components/form/SelectField'
-import SubmitButton from '@/components/form/SubmitButton'
-import TextField from '@/components/form/TextField'
-import TextareaField from '@/components/form/TextareaField'
-import { xGender } from '@/global/constants'
+import UserForm from '@/components/UserForm'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetUserQuery, useUpdateUserMutation } from '@/redux/api/usersApi'
 import { NextLayout } from '@/types'
@@ -13,68 +8,84 @@ import toast from 'react-hot-toast'
 
 const AccountSettings: NextLayout = () => {
   const { data: user } = useSession()
-  const { data, isLoading, isError } = useGetUserQuery({ id: user?.user._id })
+  const { data, isLoading } = useGetUserQuery({ id: user?.user._id })
   const [userUpdate] = useUpdateUserMutation()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlerFunction = async (data: any) => {
-    const username = data?.username?.value
-    const firstName = data?.firstName?.value
-    const lastName = data?.lastName?.value
-    const email = data?.email?.value
-    const number = data?.number?.value
-    const gender = data?.gender?.value
-    const about = data?.about?.value
-    const institute = data?.institute?.value
-    const passing_year = data?.passing_year?.value
-    const cgpa = data?.cgpa?.value
-    const password = data?.password?.value
+  // const handlerFunction = async (data: any) => {
+  //   const username = data?.username?.value
+  //   const firstName = data?.firstName?.value
+  //   const lastName = data?.lastName?.value
+  //   const email = data?.email?.value
+  //   const number = data?.number?.value
+  //   const gender = data?.gender?.value
+  //   const about = data?.about?.value
+  //   const institute = data?.institute?.value
+  //   const passing_year = data?.passing_year?.value
+  //   const cgpa = data?.cgpa?.value
+  //   const password = data?.password?.value
 
-    const responseData: any = {
-      username,
-      name: {
-        firstName,
-        lastName
-      },
-      email: {
-        address: email,
-        is_verified: true
-      },
-      number: {
-        cc: '+880',
-        digits: number.substring(1),
-        is_verified: true
-      },
-      gender,
-      about,
-      education: [
-        {
-          institute,
-          passing_year: parseInt(passing_year),
-          cgpa: parseFloat(cgpa)
-        }
-      ]
-    }
+  //   const responseData: any = {
+  //     username,
+  //     name: {
+  //       firstName,
+  //       lastName
+  //     },
+  //     email: {
+  //       address: email,
+  //       is_verified: true
+  //     },
+  //     number: {
+  //       cc: '+880',
+  //       digits: number.substring(1),
+  //       is_verified: true
+  //     },
+  //     gender,
+  //     about,
+  //     education: [
+  //       {
+  //         institute,
+  //         passing_year: parseInt(passing_year),
+  //         cgpa: parseFloat(cgpa)
+  //       }
+  //     ]
+  //   }
 
-    if (password) responseData['password'] = password
+  //   if (password) responseData['password'] = password
 
-    const res = await userUpdate({ id: user?.user._id, data: responseData }).unwrap()
+  //   const res = await userUpdate({ id: user?.user._id, data: responseData }).unwrap()
+
+  //   if (res.status) {
+  //     toast.success('User update successfull.')
+  //   } else {
+  //     toast.error('Somthing is wrong, try again')
+  //   }
+  // }
+
+  const formHandler = async (data: any) => {
+    const res = await userUpdate({ id: user?.user._id, data }).unwrap()
 
     if (res.status) {
-      toast.success('User update successfull.')
+      toast.success(res.message)
     } else {
-      toast.error('Somthing is wrong, try again')
+      toast.error(res.message)
     }
   }
-
   // if (!data || (data && !data.status)) return <div>loading</div>
   if (isLoading) return <div>Loading</div>
-  if (isError) return <div>Error</div>
 
   return (
     <div>
       <h3 className="text-lg font-medium">Account settings</h3>
       <div>
+        <UserForm
+          formHandler={formHandler}
+          defaultValue={data?.data}
+          isAccountSettings={true}
+          submitButtonText="Update Profile"
+        />
+      </div>
+      {/* <div>
         <Form submitHandler={handlerFunction}>
           <TextField label="Username" name="username" required={true} defaultValue={data?.data?.username} />
           <div className="grid grid-cols-2 gap-x-4">
@@ -133,7 +144,7 @@ const AccountSettings: NextLayout = () => {
           </div>
           <SubmitButton title="Update Profile" />
         </Form>
-      </div>
+      </div> */}
     </div>
   )
 }

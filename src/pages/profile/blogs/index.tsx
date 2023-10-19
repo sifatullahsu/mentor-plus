@@ -17,7 +17,7 @@ const BlogsPage: NextLayout = () => {
   const { data, isLoading } = useGetBlogsQuery({ query: `page=${pagination.page}&size=20` + query })
   const [deleteItem] = useDeleteBlogMutation()
 
-  const tableHeader: iTableHeader = ['Title', 'Category', 'Status', 'Actons']
+  const tableHeader: iTableHeader = ['Title', 'Category', 'username', 'Status', 'Actons']
 
   const tableData: iTableData[] = data?.data?.map((item: any): iTableData => {
     const {
@@ -35,7 +35,7 @@ const BlogsPage: NextLayout = () => {
     }
 
     return {
-      data: [_id, title, catTitle, status],
+      data: [_id, title, catTitle, username, status],
       others
     }
   })
