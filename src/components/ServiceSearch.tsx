@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useGetCategoriesQuery } from '@/redux/api/categoryApi'
-import { Dispatch, SetStateAction } from 'react'
 import Form from './form/Form'
 
 type iProps = {
-  searchState: Record<string, unknown>
-  setSearchState: Dispatch<SetStateAction<Record<string, unknown>>>
+  searchState: Record<string, string>
+  setSearchState: (data: any) => void
 }
 
 const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
