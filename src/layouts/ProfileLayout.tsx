@@ -12,8 +12,8 @@ const ProfileLayout = ({ children }: iChildren) => {
       <Header />
       {user ? (
         <div className="container py-10">
-          <div className="grid grid-cols-4 gap-5">
-            <div className="col-span-1">
+          <div className="grid grid-cols-4 gap-5 profile-dash">
+            <div className="col-span-1 ">
               <AccountSidebar />
             </div>
             <div className="col-span-3" style={{ gridColumn: 'span 3 / span 3' }}>
