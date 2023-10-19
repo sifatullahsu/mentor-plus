@@ -2,15 +2,21 @@
 import ConfirmationModal from '@/components/ConfirmationModal'
 import ReviewForm from '@/components/ReviewForm'
 import ServiceDate from '@/components/ServiceDate'
+import Form from '@/components/form/Form'
+import SubmitButton from '@/components/form/SubmitButton'
 import ProfileLayout from '@/layouts/ProfileLayout'
 import { useGetbookingQuery, useUpdatebookingMutation } from '@/redux/api/bookingApi'
 import { useCreateReviewMutation, useGetReviewsQuery } from '@/redux/api/reviewApi'
 import { NextLayout } from '@/types'
+import { addDays, setHoursAndMinutes } from '@/utils/dateFunctions'
 import getTime from '@/utils/getTime'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import toast from 'react-hot-toast'
+import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { BiCategory } from 'react-icons/bi'
 import { HiLanguage } from 'react-icons/hi2'
 
@@ -24,6 +30,9 @@ const SingleBookingPage: NextLayout = () => {
   const { data: reviewData, isLoading: reviewLoading } = useGetReviewsQuery({
     query: `service=$eq:${id}&size=1`
   })
+
+  const [rescheduleBooking, setRescheduleBooking] = useState<{ time: null | Date }>({ time: null })
+  const [cancelBookingModal, setCancelBookingModal] = useState('')
 
   const reviewFormHandler = async (reviewFieldsData: any) => {
     const finalData = {
@@ -41,14 +50,22 @@ const SingleBookingPage: NextLayout = () => {
       toast.error(res.message)
     }
   }
-
-  const [cancelBookingModal, setCancelBookingModal] = useState('')
   const cancelBookingHandler = async (id: string) => {
     const finalData = { status: 'canceled' }
     const res = await updateBooking({ id, data: finalData }).unwrap()
 
     if (res.status) {
       toast.success(res.message)
+    } else {
+      toast.error(res.message)
+    }
+  }
+  const rescheduleBookingHandler = async () => {
+    const finalData = { time: rescheduleBooking.time?.toISOString() }
+    const res = await updateBooking({ id, data: finalData }).unwrap()
+
+    if (res.status) {
+      toast.success('Booking Recheduled Completed.')
     } else {
       toast.error(res.message)
     }
@@ -108,15 +125,50 @@ const SingleBookingPage: NextLayout = () => {
           )}
 
           {data?.data?.status !== 'canceled' && dateStatus.status !== 'Past' && (
-            <div className="mt-5">
-              <button
-                className="btn btn-warning btn-sm"
-                onClick={() => setCancelBookingModal(data?.data?._id)}
-                disabled={data?.data?.status === 'canceled'}
-              >
-                Cancel Booking
-              </button>
-            </div>
+            <>
+              <div className="mt-5">
+                <button
+                  className="btn btn-warning btn-sm"
+                  onClick={() => setCancelBookingModal(data?.data?._id)}
+                  disabled={data?.data?.status === 'canceled'}
+                >
+                  Cancel Booking
+                </button>
+              </div>
+              <Form submitHandler={rescheduleBookingHandler}>
+                <div className="p-5 border mt-5">
+                  <div className="form-control">
+                    <label>
+                      <span>Want to reschedule?</span>
+                    </label>
+                    <ReactDatePicker
+                      name="date_time"
+                      selected={rescheduleBooking?.time}
+                      onChange={e => setRescheduleBooking({ ...rescheduleBooking, time: e })}
+                      showTimeSelect
+                      timeIntervals={60}
+                      minDate={new Date()}
+                      maxDate={addDays(new Date(), 6)}
+                      minTime={setHoursAndMinutes(new Date(), 6, 0)}
+                      maxTime={setHoursAndMinutes(new Date(), 22, 0)}
+                      excludeTimes={[
+                        setHoursAndMinutes(new Date(), 13, 0),
+                        setHoursAndMinutes(new Date(), 14, 0),
+                        setHoursAndMinutes(new Date(), 15, 0),
+                        setHoursAndMinutes(new Date(), 16, 0),
+                        setHoursAndMinutes(new Date(), 17, 0)
+                      ]}
+                      dateFormat="MMMM d, yyyy h:mm aa"
+                      className="!pl-8 select"
+                      placeholderText="Select Date & Time Slot"
+                      showIcon
+                      icon={<AiOutlineUsergroupAdd className="inline mt-2 text-lg" />}
+                    />
+                  </div>
+                  <SubmitButton title="Reschedule" />
+                </div>
+              </Form>
+            </>
           )}
 
           <div className="text-sm mt-5">

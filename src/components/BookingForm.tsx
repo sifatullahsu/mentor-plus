@@ -4,6 +4,7 @@ import { addDays, setHoursAndMinutes } from '@/utils/dateFunctions'
 import Image from 'next/image'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import Form from './form/Form'
 import SelectField from './form/SelectField'
@@ -32,7 +33,7 @@ const BookingForm = ({ formHandler, data, submitButtonText = 'Submit' }: iProps)
     time: null
   })
 
-  const topics = data.topics.map((item: any) => ({
+  const topics = data?.topics?.map((item: any) => ({
     key: item._id,
     value: item.title
   }))
@@ -74,7 +75,7 @@ const BookingForm = ({ formHandler, data, submitButtonText = 'Submit' }: iProps)
         />
       </div>
       <div className="grid grid-cols-3 gap-1 mt-5">
-        {data.packages.map((item: any, index: number) => {
+        {data?.packages?.map((item: any, index: number) => {
           const packageKey = `Package ${index + 1}_${item.hours}_${item.price}`
           const isSelected = bookingState.package === packageKey
 
