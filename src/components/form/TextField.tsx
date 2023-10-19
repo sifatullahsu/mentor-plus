@@ -5,9 +5,18 @@ type iProps = {
   placeholder?: string
   required?: boolean
   defaultValue?: string | number
+  disabled?: boolean
 }
 
-const TextField = ({ label, name, type = 'text', placeholder, required = false, defaultValue }: iProps) => {
+const TextField = ({
+  label,
+  name,
+  type = 'text',
+  placeholder,
+  required = false,
+  defaultValue,
+  disabled = false
+}: iProps) => {
   return (
     <div className="form-control w-full">
       <label>
@@ -19,6 +28,7 @@ const TextField = ({ label, name, type = 'text', placeholder, required = false, 
         placeholder={placeholder}
         required={required}
         defaultValue={defaultValue}
+        disabled={disabled}
       />
     </div>
   )

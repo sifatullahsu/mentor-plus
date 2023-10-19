@@ -4,9 +4,17 @@ type iProps = {
   placeholder?: string
   required?: boolean
   defaultValue?: string
+  disabled?: boolean
 }
 
-const TextareaField = ({ label, name, placeholder, required = false, defaultValue }: iProps) => {
+const TextareaField = ({
+  label,
+  name,
+  placeholder,
+  required = false,
+  defaultValue,
+  disabled = false
+}: iProps) => {
   return (
     <div className="form-control">
       <label className="label">
@@ -18,6 +26,7 @@ const TextareaField = ({ label, name, placeholder, required = false, defaultValu
         placeholder={placeholder}
         required={required}
         defaultValue={defaultValue}
+        disabled={disabled}
       ></textarea>
     </div>
   )
