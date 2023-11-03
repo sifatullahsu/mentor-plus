@@ -37,6 +37,10 @@ table tr td:last-child {
   color: #fff;
 }
 
+.profile-dash {
+  @apply grid-cols-4
+}
+
 @media screen and (max-width: 767px) {
   .profile-dash {
     @apply grid-cols-1 gap-0 gap-y-5

@@ -6,10 +6,10 @@ type iProps = {
 }
 
 const Pagination = ({ meta, handlerFunction }: iProps) => {
-  const { page, size, count } = meta
+  const { page, limit, count } = meta
 
-  // Calculate the number of pages based on the count and size
-  const totalPages = Math.ceil(count / size)
+  // Calculate the number of pages based on the count and limit
+  const totalPages = Math.ceil(count / limit)
 
   // Generate an array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1)

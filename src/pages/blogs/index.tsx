@@ -8,8 +8,8 @@ import { NextLayout } from '@/types'
 import { useState } from 'react'
 
 const BlogsPage: NextLayout = () => {
-  const [pagination, setPagination] = useState({ size: 20, page: 1 })
-  const query = `&size=${pagination.size}&page=${pagination.page}`
+  const [pagination, setPagination] = useState({ limit: 20, page: 1 })
+  const query = `&limit=${pagination.limit}&page=${pagination.page}&populate=category`
 
   const { data, isLoading, isError, refetch } = useGetBlogsQuery(
     { query },

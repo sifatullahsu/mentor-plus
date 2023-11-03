@@ -14,7 +14,9 @@ const ServicesPage: NextLayout = () => {
   const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
   const query = session?.user.role === 'admin' ? '' : `&mentor=$eq:${session?.user?._id}`
 
-  const { data, isLoading } = useGetServicesQuery({ query: `page=${pagination.page}&size=20` + query })
+  const { data, isLoading } = useGetServicesQuery({
+    query: `page=${pagination.page}&limit=20&populate=category&populate=mentor` + query
+  })
   const [deleteService] = useDeleteServiceMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Category', 'Prices', 'username', 'Status', 'Actons']

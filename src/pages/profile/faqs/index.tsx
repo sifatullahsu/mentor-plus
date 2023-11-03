@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 const FaqsPage: NextLayout = () => {
   const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
 
-  const { data, isLoading } = useGetfaqsQuery({ query: `page=${pagination.page}&size=20` })
+  const { data, isLoading } = useGetfaqsQuery({ query: `page=${pagination.page}&limit=20` })
   const [deleteItem] = useDeletefaqMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Actons']

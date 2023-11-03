@@ -5,7 +5,7 @@ import { useGetfaqsQuery } from '@/redux/api/faqApi'
 import { NextLayout } from '@/types'
 
 const FaqsPage: NextLayout = () => {
-  const { data, isLoading } = useGetfaqsQuery({ query: 'size=15' })
+  const { data, isLoading } = useGetfaqsQuery({ query: 'limit=15' })
 
   if (isLoading) return <div>Loading</div>
 

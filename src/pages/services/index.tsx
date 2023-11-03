@@ -4,16 +4,18 @@ import Pagination from '@/components/Pagination'
 import ServiceSearch from '@/components/ServiceSearch'
 import ServicesLoop from '@/components/reusable/services/ServicesLoop'
 import MainLayout from '@/layouts/MainLayout'
-import { useGetServicesWithSearchQuery } from '@/redux/api/serviceApi'
+import { useGetServicesQuery } from '@/redux/api/serviceApi'
 import { NextLayout } from '@/types'
 import { useState } from 'react'
 
 const ServicesPage: NextLayout = () => {
-  const [pagination, setPagination] = useState({ size: 20, page: 1 })
+  const [pagination, setPagination] = useState({ limit: 20, page: 1 })
   const [searchState, setSearchState] = useState({})
 
-  const query = Object.values(searchState).join('&') + `&size=${pagination.size}&page=${pagination.page}`
-  const { data, isLoading, isError, refetch } = useGetServicesWithSearchQuery(
+  const query =
+    Object.values(searchState).join('&') +
+    `&limit=${pagination.limit}&page=${pagination.page}&populate=mentor`
+  const { data, isLoading, isError, refetch } = useGetServicesQuery(
     { query },
     { refetchOnMountOrArgChange: true }
   )

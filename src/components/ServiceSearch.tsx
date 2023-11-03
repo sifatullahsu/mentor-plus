@@ -9,12 +9,12 @@ type iProps = {
 }
 
 const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
-  const { data, isLoading } = useGetCategoriesQuery({ query: 'size=20' })
+  const { data, isLoading } = useGetCategoriesQuery({ query: 'limit=20' })
 
   const handler = (key: 'search' | 'min' | 'max' | 'category', value: string) => {
     if (key === 'search') {
       if (value.length > 0) {
-        setSearchState({ ...searchState, search: `search=${value}` })
+        setSearchState({ ...searchState, search: `title=$regex:/${value}/i` })
       } else {
         const { search, ...others } = searchState
         setSearchState({ ...others })
@@ -23,7 +23,7 @@ const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
 
     if (key === 'min') {
       if (value.length > 0) {
-        setSearchState({ ...searchState, min: `min=${value}` })
+        setSearchState({ ...searchState, min: `packages.price=$gte:${value}` })
       } else {
         const { min, ...others } = searchState
         setSearchState({ ...others })
@@ -32,7 +32,7 @@ const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
 
     if (key === 'max') {
       if (value.length > 0) {
-        setSearchState({ ...searchState, max: `max=${value}` })
+        setSearchState({ ...searchState, max: `packages.price=$lte:${value}` })
       } else {
         const { max, ...others } = searchState
         setSearchState({ ...others })
@@ -41,7 +41,7 @@ const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
 
     if (key === 'category') {
       if (value.length > 0) {
-        setSearchState({ ...searchState, category: `category=${value}` })
+        setSearchState({ ...searchState, category: `category=$eq:${value}` })
       } else {
         const { category, ...others } = searchState
         setSearchState({ ...others })

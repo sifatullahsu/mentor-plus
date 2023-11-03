@@ -3,7 +3,7 @@ import { useGetfaqsQuery } from '@/redux/api/faqApi'
 import Heading from './Heading'
 
 const FaqSection = () => {
-  const { data, isLoading } = useGetfaqsQuery({ query: `size=8` })
+  const { data, isLoading } = useGetfaqsQuery({ query: `limit=8` })
 
   if (isLoading) return <div></div>
 

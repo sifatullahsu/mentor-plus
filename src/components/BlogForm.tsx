@@ -16,7 +16,7 @@ type iProps = {
 
 const BlogForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: iProps) => {
   const { data: session } = useSession()
-  const { data: categories, isLoading } = useGetCategoriesQuery({ query: `size:20` })
+  const { data: categories, isLoading } = useGetCategoriesQuery({ query: `limit:20` })
 
   const categoryField = categories?.data?.map((item: any) => ({ key: item._id, value: item.title }))
 

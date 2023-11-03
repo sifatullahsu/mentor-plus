@@ -28,7 +28,7 @@ const SingleBookingPage: NextLayout = () => {
   const [updateBooking] = useUpdatebookingMutation()
   const { data, isLoading } = useGetbookingQuery({ id, query: `user=$eq:${session?.user._id}` })
   const { data: reviewData, isLoading: reviewLoading } = useGetReviewsQuery({
-    query: `service=$eq:${id}&size=1`
+    query: `service=$eq:${id}&limit=1`
   })
 
   const [rescheduleBooking, setRescheduleBooking] = useState<{ time: null | Date }>({ time: null })

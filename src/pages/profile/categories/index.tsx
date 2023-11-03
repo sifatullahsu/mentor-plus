@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 const CategoriesPage: NextLayout = () => {
   const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
 
-  const { data, isLoading } = useGetCategoriesQuery({ query: `page=${pagination.page}&size=20` })
+  const { data, isLoading } = useGetCategoriesQuery({ query: `page=${pagination.page}&limit=20` })
   const [deleteCategory] = useDeleteCategoryMutation()
 
   const tableHeader: iTableHeader = ['Title', 'Actons']

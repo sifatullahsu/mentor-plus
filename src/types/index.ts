@@ -19,7 +19,7 @@ export type iFormEvent = React.FormEvent<HTMLFormElement>
 
 export type iMeta = {
   page: number
-  size: number
+  limit: number
   count: number
 }
 

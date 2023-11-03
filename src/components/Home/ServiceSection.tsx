@@ -1,9 +1,9 @@
-import { useGetServicesWithSearchQuery } from '@/redux/api/serviceApi'
+import { useGetServicesQuery } from '@/redux/api/serviceApi'
 import ServicesLoop from '../reusable/services/ServicesLoop'
 import Heading from './Heading'
 
 const ServiceSection = () => {
-  const { data, isLoading, isError, refetch } = useGetServicesWithSearchQuery({ query: `size=8` })
+  const { data, isLoading, isError, refetch } = useGetServicesQuery({ query: `limit=8&populate=mentor` })
 
   return (
     <div className="container py-12 md:py-20">

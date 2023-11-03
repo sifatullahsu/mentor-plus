@@ -26,7 +26,7 @@ const ServicesDetailsPage: NextLayout = () => {
   const [createBooking] = useCreatebookingMutation()
   const { data, isLoading } = useGetServiceQuery({ id: query.uid })
   const { data: reviewsData, isLoading: reviewsLoading } = useGetReviewsQuery(
-    { query: `service=$eq:${data?.data?._id}&size=20` },
+    { query: `service=$eq:${data?.data?._id}&limit=20` },
     { refetchOnMountOrArgChange: true }
   )
 

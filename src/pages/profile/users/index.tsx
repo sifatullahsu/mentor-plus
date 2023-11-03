@@ -9,7 +9,7 @@ import { useState } from 'react'
 const UsersPage: NextLayout = () => {
   const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
 
-  const { data, isLoading } = useGetUsersQuery({ query: `page=${pagination.page}&size=20` })
+  const { data, isLoading } = useGetUsersQuery({ query: `page=${pagination.page}&limit=20` })
 
   const tableHeader: iTableHeader = ['Username', 'Email', 'Role', 'Actons']
 

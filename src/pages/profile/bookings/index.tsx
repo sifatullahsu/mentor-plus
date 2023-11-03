@@ -13,7 +13,7 @@ const BookingPage: NextLayout = () => {
   const [pagination, setPagination] = useState<Partial<iMeta>>({ page: 1 })
   const query = session?.user.role === 'admin' ? '' : `&user=$eq:${session?.user?._id}`
 
-  const { data, isLoading } = useGetbookingsQuery({ query: `page=${pagination.page}&size=20` + query })
+  const { data, isLoading } = useGetbookingsQuery({ query: `page=${pagination.page}&limit=20` + query })
 
   const tableHeader: iTableHeader = ['Mentor Name', 'Time', 'Hours', 'Price', 'Status', 'Actons']
 

@@ -4,7 +4,7 @@ import { BiStar } from 'react-icons/bi'
 import Heading from './Heading'
 
 const ReviewSection = () => {
-  const { data, isLoading } = useGetReviewsQuery({ query: 'size=4' })
+  const { data, isLoading } = useGetReviewsQuery({ query: 'limit=4' })
 
   if (isLoading) return <div></div>
 

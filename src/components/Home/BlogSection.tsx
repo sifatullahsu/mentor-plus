@@ -3,7 +3,7 @@ import BlogsLoop from '../reusable/blogs/BlogsLoop'
 import Heading from './Heading'
 
 const BlogSection = () => {
-  const { data, isLoading, isError, refetch } = useGetBlogsQuery({ query: `size=8` })
+  const { data, isLoading, isError, refetch } = useGetBlogsQuery({ query: `limit=8&populate=category` })
 
   return (
     <div className="container py-12 md:py-20">

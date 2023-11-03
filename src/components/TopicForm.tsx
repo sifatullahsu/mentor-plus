@@ -25,7 +25,7 @@ const TopicForm = ({ formHandler, defaultValue, submitButtonText = 'Submit' }: i
     : []
 
   const [category, setCategory] = useState(defaultCategory)
-  const { data, isLoading } = useGetCategoriesQuery({ query: `size:20` })
+  const { data, isLoading } = useGetCategoriesQuery({ query: `limit:20` })
   const categoryField = data?.data?.map((item: any) => ({ key: item._id, value: item.title }))
 
   const localFormHandler = (from: any) => {
