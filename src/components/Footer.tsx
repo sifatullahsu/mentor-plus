@@ -1,13 +1,13 @@
-import { BiLogoFirebase } from 'react-icons/bi'
+import logo from '@/assets/logo.png'
+import Image from 'next/image'
 
 const Footer = () => {
   return (
-    <div className="bg-base-200 text-base-content p-10">
+    <div className="text-base-content p-10 pb-5 md:p-20 border-t">
       <div className="container">
         <footer className="footer footer-center">
           <aside>
-            <BiLogoFirebase className="inline text-[36px]" />
-            <p className="font-bold">Mentor Plus Ltd. </p>
+            <Image src={logo} alt="" className="max-w-[150px] md:max-w-[300px]" />
             <p>Copyright © 2023 - All right reserved</p>
           </aside>
           <nav>

@@ -50,7 +50,7 @@ const Table = ({ tableHeader, tableData, deleteHandler, isLoading, meta, setPagi
                       if (innerIndex === 0) return <th key={innerIndex}>{index + 1}</th>
                       return <td key={innerIndex}>{innerData}</td>
                     })}
-                    <td className="space-x-2">
+                    <td className="space-x-2 w-max">
                       {item?.others?.editLink && (
                         <Link href={item.others.editLink} className="btn btn-primary btn-sm btn-square">
                           <BiLink className="text-lg" />

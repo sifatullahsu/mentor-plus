@@ -18,7 +18,8 @@ const config: Config = {
     },
     fontFamily: {
       roboto: ['var(--font-roboto)'],
-      alegreya: ['var(--font-alegreya)']
+      alegreya: ['var(--font-alegreya)'],
+      rajdhani: ['var(--font-rajdhani)']
     },
     extend: {
       backgroundImage: {
@@ -34,6 +35,9 @@ const config: Config = {
         cupcake: {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
           ...require('daisyui/src/theming/themes')['[data-theme=cupcake]'],
+          primary: '#0891B2',
+          secondary: '#1F2937',
+          neutral: '#535353',
           '--rounded-box': '4px',
           '--rounded-btn': '4px',
           '--rounded-badge': '1.9rem'

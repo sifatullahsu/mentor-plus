@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Heading from '@/components/Home/Heading'
 import Pagination from '@/components/Pagination'
 import ServiceSearch from '@/components/ServiceSearch'
 import ServicesLoop from '@/components/reusable/services/ServicesLoop'
@@ -24,7 +25,8 @@ const ServicesPage: NextLayout = () => {
   if (isLoading) return <div>loading</div>
 
   return (
-    <div className="container py-10">
+    <div className="container py-10 md:py-20">
+      <Heading short="TOP CLASS MENTORS" title="Mentor's Services" description="" />
       <ServiceSearch searchState={searchState} setSearchState={setSearchState} />
       <ServicesLoop data={data?.data} isLoading={isLoading} isError={isError} refetch={refetch} />
       <div className="mt-14">

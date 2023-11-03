@@ -1,4 +1,4 @@
-import { alegreya, roboto } from '@/fonts'
+import { alegreya, rajdhani, roboto } from '@/fonts'
 import { store } from '@/redux/store'
 import '@/styles/style.css'
 import { AppPropsWithLayout, iChildren } from '@/types'
@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             :root {
               --font-roboto: ${roboto.style.fontFamily};
               --font-alegreya: ${alegreya.style.fontFamily};
+              --font-rajdhani: ${rajdhani.style.fontFamily};
             }
           `}</style>
           {getLayout(<Component {...otherProps} />)}

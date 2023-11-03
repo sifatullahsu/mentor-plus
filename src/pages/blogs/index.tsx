@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Heading from '@/components/Home/Heading'
 import Pagination from '@/components/Pagination'
 import BlogsLoop from '@/components/reusable/blogs/BlogsLoop'
 import MainLayout from '@/layouts/MainLayout'
@@ -20,7 +21,8 @@ const BlogsPage: NextLayout = () => {
 
   if (isLoading) return <div>loading</div>
   return (
-    <div className="container py-10">
+    <div className="container py-10 md:py-20">
+      <Heading short="Knowledge is power" title="Explore Our Blog Posts" description="" />
       <BlogsLoop data={data?.data} isLoading={isLoading} isError={isError} refetch={refetch} />
       <div className="mt-14">
         <Pagination meta={data?.meta} handlerFunction={paginationHandler} />

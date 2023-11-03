@@ -1,6 +1,7 @@
+import logo from '@/assets/logo.png'
 import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { BiLogoFirebase } from 'react-icons/bi'
 import { HiBars3BottomLeft } from 'react-icons/hi2'
 import { IoLogOutOutline } from 'react-icons/io5'
 
@@ -51,8 +52,7 @@ const Header = () => {
               <ul className="menu menu-sm dropdown-content shadow bg-base-100 z-30">{items()}</ul>
             </div>
             <Link href="/" className="text-xl font-medium">
-              <BiLogoFirebase className="inline text-[30px]" />
-              Mentor Plus
+              <Image src={logo} alt="" style={{ maxWidth: '180px' }} />
             </Link>
           </div>
           <div className="navbar-end hidden lg:block text-right">

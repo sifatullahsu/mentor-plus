@@ -17,17 +17,17 @@ const ServicesDetailsPage: NextLayout = () => {
   const blog = data.data
   return (
     <div className="container py-10 services-single">
-      <div className="grid grid-cols-4 gap-10">
+      <div className="grid md:grid-cols-4 md:gap-10">
         <div></div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <img src={blog.image} alt="" className="border rounded-xl h-[200px] w-full object-cover" />
           <div className="my-2">
-            <div className="underline">
+            <div className="font-semibold lowercase text-primary hover:underline">
               <BiCategory className="inline mr-1 text-lg" />
               {blog?.category?.title}
             </div>
           </div>
-          <div className="text-2xl font-medium mb-5">{blog.title}</div>
+          <div className="text-2xl font-rajdhani font-bold mb-5">{blog.title}</div>
           <div className="" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
           <div className="flex gap-2 mt-20">
             <img src="https://source.unsplash.com/50x50/?portrait" alt="" className="rounded-full w-[50px]" />

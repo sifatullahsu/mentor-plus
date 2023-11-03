@@ -33,6 +33,9 @@ table tr td:last-child {
   float: right;
 }
 
+.btn-primary {
+  color: #fff;
+}
 
 @media screen and (max-width: 767px) {
   .profile-dash {

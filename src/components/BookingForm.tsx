@@ -91,7 +91,7 @@ const BookingForm = ({ formHandler, data, submitButtonText = 'Submit' }: iProps)
                   name="slot"
                   onChange={() => setBookingState({ ...bookingState, package: packageKey })}
                   value={`${packageKey}`}
-                  className="opacity-0 absolute inset-0 z-30"
+                  className="opacity-0 absolute inset-0 z-30 w-full h-full"
                   checked={isSelected}
                 />
               </div>
@@ -103,7 +103,7 @@ const BookingForm = ({ formHandler, data, submitButtonText = 'Submit' }: iProps)
         title={submitButtonText}
         disabled={bookingState.package && bookingState.time && bookingState.topic ? false : true}
       />
-      <Image src={securePayment} alt="" className="w-8/12 mt-5" />
+      <Image src={securePayment} alt="" className="w-8/12 max-w-xs mt-5" />
     </Form>
   )
 }

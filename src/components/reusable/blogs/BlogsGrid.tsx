@@ -8,17 +8,17 @@ const BlogsGrid = ({ data }: any) => {
       <img src={data.image} alt="" className="border rounded-xl h-[200px] w-full object-cover" />
       <div className="px-1 py-2">
         <div className="mt-2">
-          <div className="underline">
+          <span className="font-semibold lowercase text-primary hover:underline">
             <BiCategory className="inline mr-1 text-lg" />
             {data?.category?.title}
-          </div>
+          </span>
         </div>
-        <div className="text-lg font-medium ">
+        <div className="text-lg font-rajdhani font-bold ">
           <Link href={`/blogs/${data.user.username}/${data.slug}`} className="hover:underline">
             {data.title}
           </Link>
         </div>
-        <div className="mt-5 text-sm">{data.content.slice(0, 100)}...</div>
+        <div className="mt-5 text-sm text-neutral">{data.content.slice(0, 100)}...</div>
 
         <Link href={`/blogs/${data.user.username}/${data.slug}`} className="btn btn-primary btn-sm mt-5">
           Read More

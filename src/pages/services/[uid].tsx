@@ -62,9 +62,9 @@ const ServicesDetailsPage: NextLayout = () => {
 
   return (
     <div className="container py-10 services-single">
-      <div className="grid grid-cols-4 gap-10">
+      <div className="grid lg:grid-cols-4 gap-10">
         <div className="space-y-5">
-          <img src={service?.image} alt="" className="border rounded-xl" />
+          <img src={service?.image} alt="" className="w-full border rounded-xl" />
           <div className="font-bold">
             <BiCategory className="inline mr-1 text-lg" /> {service?.category.title}
           </div>
@@ -81,14 +81,17 @@ const ServicesDetailsPage: NextLayout = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="lg:col-span-2">
           <div className="mt-2">
-            <Link href={`/mentors/${service?.mentor?.username}`} className="text-primary underline">
+            <Link
+              href={`/mentors/${service?.mentor?.username}`}
+              className="text-primary font-medium hover:underline"
+            >
               <AiOutlineUsergroupAdd className="inline mr-1 text-lg" />
               {service?.mentor?.username}
             </Link>
           </div>
-          <div className="text-2xl font-medium mb-5">{service.title}</div>
+          <div className="text-2xl font-rajdhani font-bold mb-5">{service.title}</div>
           <div className="" dangerouslySetInnerHTML={{ __html: service.description }}></div>
           <div className="mt-20">
             <h3 className="text-2xl font-medium mb-5">Reviews</h3>

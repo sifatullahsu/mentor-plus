@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import AccountSidebar from '@/components/profile/AccountSidebar'
 import { iChildren } from '@/types'
@@ -25,7 +24,7 @@ const ProfileLayout = ({ children }: iChildren) => {
         <>{children}</>
       )}
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

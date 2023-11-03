@@ -21,7 +21,9 @@ const FaqSection = () => {
           {data?.data?.map((item: any) => {
             return (
               <details key={item._id}>
-                <summary className="py-2 outline-none cursor-pointer focus:underline">{item.title}</summary>
+                <summary className="py-2 text-xl font-rajdhani font-bold outline-none cursor-pointer focus:underline">
+                  {item.title}
+                </summary>
                 <div className="px-4 pb-4">
                   <p>{item.description}</p>
                 </div>

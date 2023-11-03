@@ -53,43 +53,31 @@ const ServiceSearch = ({ searchState, setSearchState }: iProps) => {
 
   return (
     <Form submitHandler={() => null}>
-      <div className="join mb-10">
-        <div>
-          <div>
-            <input
-              className="input input-bordered join-item"
-              defaultValue={searchState?.search as string}
-              placeholder="Search"
-              onChange={e => handler('search', e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input
-              type="number"
-              min={0}
-              defaultValue={searchState?.min as string}
-              className="input input-bordered join-item w-32"
-              placeholder="Min price"
-              onChange={e => handler('min', e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input
-              type="number"
-              min={0}
-              defaultValue={searchState?.max as string}
-              className="input input-bordered join-item w-32"
-              placeholder="Max price"
-              onChange={e => handler('max', e.target.value)}
-            />
-          </div>
-        </div>
+      <div className="md:join mb-10">
+        <input
+          className="input w-full input-bordered join-item"
+          defaultValue={searchState?.search as string}
+          placeholder="Search"
+          onChange={e => handler('search', e.target.value)}
+        />
+        <input
+          type="number"
+          min={0}
+          defaultValue={searchState?.min as string}
+          className="input input-bordered join-item w-1/3 md:w-32"
+          placeholder="Min price"
+          onChange={e => handler('min', e.target.value)}
+        />
+        <input
+          type="number"
+          min={0}
+          defaultValue={searchState?.max as string}
+          className="input input-bordered join-item w-1/3 md:w-32 mt-1"
+          placeholder="Max price"
+          onChange={e => handler('max', e.target.value)}
+        />
         <select
-          className="select select-bordered join-item"
+          className="select select-bordered join-item w-1/3 -mt[5px]"
           defaultValue={searchState?.category as string}
           onChange={e => handler('category', e.target.value)}
         >

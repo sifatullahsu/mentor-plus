@@ -10,7 +10,7 @@ const ServiceSection = () => {
       <Heading
         short="Top class mentors"
         title="Mentor's Services"
-        description="DDiscover tailored guidance and expertise from our dedicated mentors. Benefit from a diverse array of
+        description="Discover tailored guidance and expertise from our dedicated mentors. Benefit from a diverse array of
         specialized services aimed at nurturing your personal and professional growth."
       />
       <ServicesLoop data={data?.data} isLoading={isLoading} isError={isError} refetch={refetch} />

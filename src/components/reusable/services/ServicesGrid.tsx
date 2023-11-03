@@ -15,15 +15,18 @@ const ServicesGrid = ({ data }: any) => {
 
   return (
     <div>
-      <img src={data.image} alt="" className="border rounded-xl" />
+      <img src={data.image} alt="" className="border rounded-xl max-h-[150px] w-full object-cover" />
       <div className="px-1 py-2">
         <div className="mt-2">
-          <Link href={`/mentors/${data?.mentor?.username}`} className="text-primary underline">
+          <Link
+            href={`/mentors/${data?.mentor?.username}`}
+            className="text-primary font-medium hover:underline"
+          >
             <AiOutlineUsergroupAdd className="inline mr-1 text-lg" />
             {data?.mentor?.username}
           </Link>
         </div>
-        <div className="text-lg font-medium ">
+        <div className="text-lg font-bold text-secondary font-rajdhani min-h-[56px]">
           <Link href={`/services/${data.uid}`} className="hover:underline">
             {data.title}
           </Link>
