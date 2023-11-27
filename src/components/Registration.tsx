@@ -1,5 +1,6 @@
 import { xGender } from '@/global/constants'
 import { useUserRegistrationMutation } from '@/redux/api/authApi'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Form from './form/Form'
 import SelectField from './form/SelectField'
@@ -8,10 +9,12 @@ import TextField from './form/TextField'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Registration = ({ setIsLogin }: { setIsLogin?: any }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [userRegistration] = useUserRegistrationMutation()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loginHandler = async (data: any) => {
+    setIsLoading(true)
     const username = data?.username?.value
     const firstName = data?.firstName?.value
     const lastName = data?.lastName?.value
@@ -46,6 +49,7 @@ const Registration = ({ setIsLogin }: { setIsLogin?: any }) => {
     } else {
       toast.error('Somthing is wrong, try again')
     }
+    setIsLoading(false)
   }
 
   return (
@@ -60,7 +64,7 @@ const Registration = ({ setIsLogin }: { setIsLogin?: any }) => {
         </div>
         <SelectField label="Gender" name="gender" required={true} data={xGender} />
         <TextField label="Password" name="password" required={true} />
-        <SubmitButton title="Register Now" />
+        <SubmitButton title="Register Now" disabled={isLoading} />
       </Form>
     </div>
   )

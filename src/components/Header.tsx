@@ -26,9 +26,18 @@ const Header = () => {
         {/* <li>
           <Link href="/mentors">Mentors</Link>
         </li> */}
-        <li>
+        {data ? (
+          <li>
+            <Link href="/profile">My Profile</Link>
+          </li>
+        ) : (
+          <li>
+            <Link href="/login">Login / Registration</Link>
+          </li>
+        )}
+        {/* <li>
           <Link href="/profile">{data ? 'My Profile' : 'Login / Registration'}</Link>
-        </li>
+        </li> */}
         {data && (
           <li>
             <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>

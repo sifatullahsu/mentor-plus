@@ -7,6 +7,7 @@ const SubmitButton = ({ title, disabled = false }: iProps) => {
   return (
     <div>
       <button type="submit" disabled={disabled} className="btn btn-secondary btn-sm mt-5">
+        {disabled && <span className="loading loading-spinner"></span>}
         {title}
       </button>
     </div>
