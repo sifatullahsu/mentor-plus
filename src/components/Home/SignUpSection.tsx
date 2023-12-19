@@ -7,7 +7,7 @@ const SignUpSection = () => {
       <div className="container space-y-8 p-4 md:p-10 md:px-24 xl:px-48">
         <Heading
           title="Sign Up Now"
-          description="Join today for endless possibilities. Your journey begins here."
+          description="Join now to open the door to boundless possibilities! Your journey kicks off here—join today and dive into a world of endless potential. Don't miss out on the exciting opportunities that await you. Sign up now and start your adventure!"
           short=""
         />
         <div className="flex justify-center text-center flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-8">

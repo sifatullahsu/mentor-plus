@@ -1,4 +1,5 @@
 import BlogSection from '@/components/Home/BlogSection'
+import BridgeSection from '@/components/Home/BridgeSection'
 import FaqSection from '@/components/Home/FaqSection'
 import Hero from '@/components/Home/Hero'
 import ReviewSection from '@/components/Home/ReviewSection'
@@ -15,6 +16,7 @@ const HomePage: NextLayout = () => {
       <FaqSection />
       <BlogSection />
       <SignUpSection />
+      <BridgeSection />
       <ReviewSection />
     </div>
   )

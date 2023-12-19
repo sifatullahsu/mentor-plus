@@ -42,6 +42,23 @@ const Login = () => {
         <TextField label="Password" name="password" type="password" required={true} />
         <SubmitButton title="Login Now" disabled={isLoading} />
       </Form>
+      <div>
+        <p className="mt-5 text-lg">You can also logged in via existing accounts.</p>
+        <div className="mt-2 mb-6">
+          <p>
+            <span className="font-bold">Admin:</span> sifatullah
+          </p>
+          <p>
+            <span className="font-bold">Mentor:</span> alexroy
+          </p>
+          <p>
+            <span className="font-bold">Student:</span> thomaswood
+          </p>
+          <p className="mt-3">
+            <span className="font-bold">Password:</span> 123456
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
