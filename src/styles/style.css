@@ -41,6 +41,18 @@ table tr td:last-child {
   @apply grid-cols-4
 }
 
+.social-icons a {
+  @apply p-2 bg-primary text-white text-xl rounded
+}
+
+.footer-links a {
+  @apply btn btn-ghost btn-sm text-gray-500 font-normal;
+}
+
+.social-icons a:hover {
+  @apply bg-primary-focus
+}
+
 @media screen and (max-width: 767px) {
   .profile-dash {
     @apply grid-cols-1 gap-0 gap-y-5
