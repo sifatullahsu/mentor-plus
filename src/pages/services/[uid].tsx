@@ -1,59 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import BookingForm from '@/components/BookingForm'
-import Authentication from '@/components/profile/Authentication'
 import MainLayout from '@/layouts/MainLayout'
-import { useCreatebookingMutation } from '@/redux/api/bookingApi'
 import { useGetReviewsQuery } from '@/redux/api/reviewApi'
 import { useGetServiceQuery } from '@/redux/api/serviceApi'
 import { NextLayout } from '@/types'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { BiCategory } from 'react-icons/bi'
-import { BsInfoLg } from 'react-icons/bs'
 import { HiLanguage } from 'react-icons/hi2'
-import Drawer from 'react-modern-drawer'
-import 'react-modern-drawer/dist/index.css'
 
 const ServicesDetailsPage: NextLayout = () => {
-  const { data: user } = useSession()
-  const { query, push } = useRouter()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { query } = useRouter()
 
-  const [createBooking] = useCreatebookingMutation()
   const { data, isLoading } = useGetServiceQuery({ id: query.uid })
   const { data: reviewsData, isLoading: reviewsLoading } = useGetReviewsQuery(
     { query: `service=$eq:${data?.data?._id}&limit=20` },
     { refetchOnMountOrArgChange: true }
   )
-
-  const handleBookNow = async (formData: any) => {
-    if (!user) return setIsModalOpen(prevState => !prevState)
-
-    const [, hours, price] = formData.package.split('_')
-
-    const data: any = {
-      service: service._id,
-      topic: formData.topic,
-      user: user?.user._id,
-      price: parseInt(price),
-      hours: parseInt(hours),
-      time: formData.time.toISOString(),
-      transactionId: new Date().toISOString()
-    }
-
-    const res = await createBooking({ data }).unwrap()
-
-    if (res.status) {
-      toast.success(res.message)
-      push('/profile/bookings')
-    } else {
-      toast.error(res.message)
-    }
-  }
 
   if (isLoading || reviewsLoading) return <div>Loading</div>
 
@@ -95,7 +58,7 @@ const ServicesDetailsPage: NextLayout = () => {
           <div className="" dangerouslySetInnerHTML={{ __html: service.description }}></div>
           <div className="mt-20">
             <h3 className="text-2xl font-medium mb-5">Reviews</h3>
-            {reviews?.map((review: any) => {
+            {reviews?.map((review: Record<string, string>) => {
               return (
                 <div key={review._id} className="border-t-2 border-dashed py-2">
                   <div className="text-lg font-medium text-primary">{review.title}</div>
@@ -109,28 +72,13 @@ const ServicesDetailsPage: NextLayout = () => {
         </div>
         <div>
           <BookingForm
-            formHandler={handleBookNow}
             data={{
+              serviceId: service._id,
               topics: service.topics,
               packages: service.packages
             }}
             submitButtonText="Book Now"
           />
-          {!user && (
-            <Drawer
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(prevState => !prevState)}
-              direction="right"
-              className="!w-[300px] md:!w-[600px]"
-            >
-              <div className="p-10">
-                <h3 className="text-lg font-medium">
-                  <BsInfoLg className="inline mr-1 text-2xl" /> Please Login to Proceed.
-                </h3>
-                <Authentication />
-              </div>
-            </Drawer>
-          )}
         </div>
       </div>
     </div>

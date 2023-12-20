@@ -4,6 +4,7 @@ import '@/styles/style.css'
 import { AppPropsWithLayout, iChildren } from '@/types'
 import { SessionProvider, useSession } from 'next-auth/react'
 import { Toaster } from 'react-hot-toast'
+import 'react-modern-drawer/dist/index.css'
 import { Provider } from 'react-redux'
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {

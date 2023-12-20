@@ -3,7 +3,7 @@ import Heading from './Heading'
 
 const SignUpSection = () => {
   return (
-    <section className="py-6 bg-gray-100 text-gray-900">
+    <section className="py-6 bg-gray-100 text-gray-900 border-y">
       <div className="container space-y-8 p-4 md:p-10 md:px-24 xl:px-48">
         <Heading
           title="Sign Up Now"

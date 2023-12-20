@@ -8,7 +8,7 @@ const FaqSection = () => {
   if (isLoading) return <div></div>
 
   return (
-    <div className="bg-gray-100 text-gray-800">
+    <div className="bg-gray-100 text-gray-800 border-y">
       <div className="container py-12 md:py-20">
         <Heading
           short="How it works"

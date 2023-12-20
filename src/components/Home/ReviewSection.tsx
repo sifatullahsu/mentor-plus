@@ -18,7 +18,10 @@ const ReviewSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {data?.data?.map((item: any) => {
           return (
-            <div key={item._id} className="divide-y rounded-md divide-gray-150 bg-gray-100 text-gray-800">
+            <div
+              key={item._id}
+              className="divide-y rounded-md divide-gray-150 bg-gray-100 text-gray-800 border"
+            >
               <div className="flex justify-between p-5">
                 <div className="flex space-x-4">
                   <div>

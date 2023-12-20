@@ -39,6 +39,13 @@ export const bookingApi = baseApi.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: [tags.bookings]
+    }),
+    createPaymentIntent: build.mutation({
+      query: ({ data }) => ({
+        url: `/bookings/create-payment-intent`,
+        method: 'POST',
+        data: data
+      })
     })
   })
 })
@@ -48,5 +55,6 @@ export const {
   useGetbookingsQuery,
   useGetbookingQuery,
   useUpdatebookingMutation,
-  useDeletebookingMutation
+  useDeletebookingMutation,
+  useCreatePaymentIntentMutation
 } = bookingApi

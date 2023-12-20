@@ -55,7 +55,7 @@ const Login = () => {
             <span className="font-bold">Student:</span> thomaswood
           </p>
           <p className="mt-3">
-            <span className="font-bold">Password:</span> 123456
+            <span className="font-bold">Password:</span> 12345
           </p>
         </div>
       </div>

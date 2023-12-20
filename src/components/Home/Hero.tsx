@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const Hero = () => {
   return (
-    <section className="bg-gray-100 text-gray-800">
+    <section className="bg-gray-100 text-gray-800 border-b">
       <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-16 lg:flex-row lg:justify-between">
         <div className="mt-6 m-auto">
           <Image src={heroPic} alt="" />
